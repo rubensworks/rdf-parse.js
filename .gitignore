@@ -19,3 +19,4 @@ yarn-error.log
 **/index.d.ts
 coverage
 documentation
+engine-default.js

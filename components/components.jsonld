@@ -1,0 +1,9 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/rdf-parse/^1.0.0/components/context.jsonld",
+  "@id": "npmd:rdf-parse",
+  "@type": "Module",
+  "requireName": "rdf-parse",
+  "import": [
+    "files-rp:components/RdfParser.jsonld"
+  ]
+}

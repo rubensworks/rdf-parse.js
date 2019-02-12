@@ -1,0 +1,36 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/rdf-parse/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-n3/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-jsonld/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-rdfxml/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/mediator-race/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/runner/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld"
+
+  ],
+  "@id": "urn:comunica:my",
+  "@type": "RdfParser",
+  "mediatorRdfParse": {
+    "@id": "config:mediatorRdfParse",
+    "@type": "MediatorRace",
+    "cc:Mediator/bus": { "@id": "cbrp:Bus/RdfParse" }
+  },
+  "parsers": [
+    {
+      "@id": "config:myRdfParserN3",
+      "@type": "ActorRdfParseN3"
+    },
+    {
+      "@id": "config:myRdfParserJsonLd",
+      "@type": "ActorRdfParseJsonLd",
+      "priorityScale": 0.9
+    },
+    {
+      "@id": "config:myRdfParserRdfXml",
+      "@type": "ActorRdfParseRdfXml",
+      "priorityScale": 0.85
+    }
+  ]
+}

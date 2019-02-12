@@ -1,0 +1,43 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/rdf-parse/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:rdf-parse",
+  "components": [
+    {
+      "@id": "rp:RdfParser",
+      "@type": "Class",
+      "requireElement": "RdfParser",
+      "comment": "An RDF Parser.",
+      "parameters": [
+        {
+          "@id": "rp:mediatorRdfParse",
+          "comment": "The RDF Parse mediator",
+          "required": true,
+          "unique": true
+        },
+        {
+          "@id": "rp:parser",
+          "comment": "A parser",
+          "required": true
+        }
+      ],
+      "constructorArguments": [
+        {
+          "@id": "rp:RdfParser/constructorArgumentsObject",
+          "fields": [
+            {
+              "keyRaw": "mediatorRdfParse",
+              "value": "rp:mediatorRdfParse"
+            },
+            {
+              "keyRaw": "parsers",
+              "value": "rp:parser"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
