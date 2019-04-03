@@ -8,7 +8,8 @@
       "config": "files-rp:config/config-default.json#",
 
       "RdfParser": "rp:RdfParser",
-      "mediatorRdfParse": "rp:mediatorRdfParse",
+      "mediatorRdfParseMediatypes": "rp:mediatorRdfParseMediatypes",
+      "mediatorRdfParseHandle": "rp:mediatorRdfParseHandle",
       "parsers": "rp:parser"
     }
   ]

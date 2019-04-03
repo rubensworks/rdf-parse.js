@@ -2,9 +2,11 @@
   "@context": [
     "https://linkedsoftwaredependencies.org/bundles/npm/rdf-parse/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-abstract-mediatyped/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-n3/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-jsonld/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-rdfxml/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/mediator-combine-union/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/mediator-race/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/runner/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld"
@@ -12,8 +14,14 @@
   ],
   "@id": "urn:comunica:my",
   "@type": "RdfParser",
-  "mediatorRdfParse": {
-    "@id": "config:mediatorRdfParse",
+  "mediatorRdfParseMediatypes": {
+    "@id": "config:mediatorRdfParseMediatypes",
+    "@type": "MediatorCombineUnion",
+    "cc:Mediator/bus": { "@id": "cbrp:Bus/RdfParse" },
+    "cmcu:Mediator/CombineUnion/field": "mediaTypes"
+  },
+  "mediatorRdfParseHandle": {
+    "@id": "config:mediatorRdfParseHandle",
     "@type": "MediatorRace",
     "cc:Mediator/bus": { "@id": "cbrp:Bus/RdfParse" }
   },

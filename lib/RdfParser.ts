@@ -8,11 +8,14 @@ import {Readable} from "stream";
  */
 export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
 
-  public readonly mediatorRdfParse: Mediator<Actor<IActionRootRdfParse, IActorTestRootRdfParse,
+  public readonly mediatorRdfParseMediatypes: Mediator<Actor<IActionRootRdfParse, IActorTestRootRdfParse,
+    IActorOutputRootRdfParse>, IActionRootRdfParse, IActorTestRootRdfParse, IActorOutputRootRdfParse>;
+  public readonly mediatorRdfParseHandle: Mediator<Actor<IActionRootRdfParse, IActorTestRootRdfParse,
     IActorOutputRootRdfParse>, IActionRootRdfParse, IActorTestRootRdfParse, IActorOutputRootRdfParse>;
 
   constructor(args: IRdfParserArgs) {
-    this.mediatorRdfParse = args.mediatorRdfParse;
+    this.mediatorRdfParseMediatypes = args.mediatorRdfParseMediatypes;
+    this.mediatorRdfParseHandle = args.mediatorRdfParseHandle;
   }
 
   /**
@@ -28,7 +31,7 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
    * @return {Promise<{[p: string]: number}>} A promise resolving to a hash mapping content type to a priority number.
    */
   public async getContentTypesPrioritized(): Promise<{[contenType: string]: number}> {
-    return (await this.mediatorRdfParse.mediate(
+    return (await this.mediatorRdfParseMediatypes.mediate(
       { context: ActionContext({}), mediaTypes: true })).mediaTypes;
   }
 
@@ -50,7 +53,7 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
     };
 
     // Delegate parsing to the mediator
-    this.mediatorRdfParse.mediate(
+    this.mediatorRdfParseHandle.mediate(
       { context: ActionContext({}), handle: { input: stream, baseIRI }, handleMediaType: contentType })
       .then((output) => {
         const quads: RDF.Stream = output.handle.quads;
@@ -66,7 +69,9 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
 }
 
 export interface IRdfParserArgs {
-  mediatorRdfParse: Mediator<Actor<IActionRootRdfParse, IActorTestRootRdfParse,
+  mediatorRdfParseMediatypes: Mediator<Actor<IActionRootRdfParse, IActorTestRootRdfParse,
+    IActorOutputRootRdfParse>, IActionRootRdfParse, IActorTestRootRdfParse, IActorOutputRootRdfParse>;
+  mediatorRdfParseHandle: Mediator<Actor<IActionRootRdfParse, IActorTestRootRdfParse,
     IActorOutputRootRdfParse>, IActionRootRdfParse, IActorTestRootRdfParse, IActorOutputRootRdfParse>;
 }
 

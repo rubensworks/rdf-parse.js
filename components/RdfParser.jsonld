@@ -12,8 +12,14 @@
       "comment": "An RDF Parser.",
       "parameters": [
         {
-          "@id": "rp:mediatorRdfParse",
-          "comment": "The RDF Parse mediator",
+          "@id": "rp:mediatorRdfParseMediatypes",
+          "comment": "The RDF Parse mediator for collecting media types",
+          "required": true,
+          "unique": true
+        },
+        {
+          "@id": "rp:mediatorRdfParseHandle",
+          "comment": "The RDF Parse mediator for handling parsing",
           "required": true,
           "unique": true
         },
@@ -28,8 +34,12 @@
           "@id": "rp:RdfParser/constructorArgumentsObject",
           "fields": [
             {
-              "keyRaw": "mediatorRdfParse",
-              "value": "rp:mediatorRdfParse"
+              "keyRaw": "mediatorRdfParseMediatypes",
+              "value": "rp:mediatorRdfParseMediatypes"
+            },
+            {
+              "keyRaw": "mediatorRdfParseHandle",
+              "value": "rp:mediatorRdfParseHandle"
             },
             {
               "keyRaw": "parsers",

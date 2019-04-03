@@ -18,13 +18,19 @@ describe('parser', () => {
       'text/turtle',
       'application/n-triples',
       'text/n3',
+      'application/ld+json',
+      'application/json',
+      'application/rdf+xml',
     ]);
   });
 
   it('should get all prioritized content types', async () => {
     expect(await parser.getContentTypesPrioritized()).toEqual({
+      'application/json': 0.09000000000000001,
+      'application/ld+json': 0.9,
       'application/n-quads': 0.7,
       'application/n-triples': 0.3,
+      'application/rdf+xml': 0.85,
       'application/trig': 1,
       'text/n3': 0.2,
       'text/turtle': 0.6,
@@ -65,6 +71,47 @@ describe('parser', () => {
 `);
     return expect(arrayifyStream(parser.parse(stream, { contentType: 'text/turtle' })))
       .rejects.toThrow(new Error('Expected entity but got eof on line 3.'));
+  });
+
+  it('should parse application/ld+json without baseIRI', () => {
+    const stream = stringToStream(`
+{
+  "@context": "http://schema.org/",
+  "@type": "Person",
+  "@id": "",
+  "name": "Jane Doe",
+  "url": ""
+}
+`);
+    return expect(arrayifyStream(parser.parse(stream, { contentType: 'application/ld+json' }))).resolves
+      .toBeRdfIsomorphic([]);
+  });
+
+  it('should parse application/ld+json with baseIRI', () => {
+    const stream = stringToStream(`
+{
+  "@context": "http://schema.org/",
+  "@type": "Person",
+  "@id": "",
+  "name": "Jane Doe",
+  "url": ""
+}
+`);
+    return expect(arrayifyStream(parser
+      .parse(stream, { contentType: 'application/ld+json', baseIRI: 'http://ex.org/' })))
+      .resolves.toBeRdfIsomorphic([
+        quad('http://ex.org/', 'http://schema.org/name', '"Jane Doe"'),
+        quad('http://ex.org/', 'http://schema.org/url', 'http://ex.org/'),
+        quad('http://ex.org/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://schema.org/Person'),
+      ]);
+  });
+
+  it('should fail to parse invalid application/ld+json', () => {
+    const stream = stringToStream(`
+<s> <p> <o1>,
+`);
+    return expect(arrayifyStream(parser.parse(stream, { contentType: 'application/ld+json' })))
+      .rejects.toThrow(new Error('Unexpected "s" at position 2 in state STOP'));
   });
 
   it('should fail to parse an unknown content type', () => {
