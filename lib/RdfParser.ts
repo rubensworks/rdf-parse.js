@@ -8,6 +8,23 @@ import {Readable} from "stream";
  */
 export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
 
+  // tslint:disable:object-literal-sort-keys
+  private static readonly CONTENT_MAPPINGS: { [id: string]: string } = {
+    ttl      : "text/turtle",
+    turtle   : "text/turtle",
+    nt       : "application/n-triples",
+    ntriples : "application/n-triples",
+    nq       : "application/n-quads",
+    nquads   : "application/n-quads",
+    rdf      : "application/rdf+xml",
+    rdfxml   : "application/rdf+xml",
+    owl      : "application/rdf+xml",
+    n3       : "text/n3",
+    trig     : "application/trig",
+    jsonld   : "application/ld+json",
+    json     : "application/json",
+  };
+
   public readonly mediatorRdfParseMediatypes: Mediator<Actor<IActionRootRdfParse, IActorTestRootRdfParse,
     IActorOutputRootRdfParse>, IActionRootRdfParse, IActorTestRootRdfParse, IActorOutputRootRdfParse>;
   public readonly mediatorRdfParseHandle: Mediator<Actor<IActionRootRdfParse, IActorTestRootRdfParse,
@@ -41,9 +58,17 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
    * @param {IParseOptions} options Parsing options.
    * @return {Stream} An RDFJS quad stream.
    */
-  public parse(stream: NodeJS.ReadableStream, { contentType, baseIRI }: IParseOptions): RDF.Stream {
-    if (!contentType) {
-      throw new Error(`Missing 'contentType' option while parsing.`);
+  public parse(stream: NodeJS.ReadableStream, options: ParseOptions): RDF.Stream {
+    let contentType: string;
+    if ('contentType' in options) {
+      contentType = options.contentType;
+    } else if ('path' in options) {
+      contentType = this.getContentTypeFromExtension(options.path);
+      if (!contentType) {
+        throw new Error(`No valid extension could be detected from the given 'path' option: '${options.path}'`);
+      }
+    } else {
+      throw new Error(`Missing 'contentType' or 'path' option while parsing.`);
     }
 
     // Create a new readable
@@ -54,7 +79,7 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
 
     // Delegate parsing to the mediator
     this.mediatorRdfParseHandle.mediate(
-      { context: ActionContext({}), handle: { input: stream, baseIRI }, handleMediaType: contentType })
+      { context: ActionContext({}), handle: { input: stream, baseIRI: options.baseIRI }, handleMediaType: contentType })
       .then((output) => {
         const quads: RDF.Stream = output.handle.quads;
         quads.on('error', (e) => readable.emit('error', e));
@@ -66,6 +91,22 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
     return readable;
   }
 
+  /**
+   * Get the content type based on the extension of the given path,
+   * which can be an URL or file path.
+   * @param {string} path A path.
+   * @return {string} A content type or the empty string.
+   */
+  protected getContentTypeFromExtension(path: string): string {
+    const dotIndex = path.lastIndexOf('.');
+    if (dotIndex >= 0) {
+      const ext = path.substr(dotIndex);
+      // ignore dot
+      return RdfParser.CONTENT_MAPPINGS[ext.substring(1)] || '';
+    }
+    return '';
+  }
+
 }
 
 export interface IRdfParserArgs {
@@ -75,7 +116,7 @@ export interface IRdfParserArgs {
     IActorOutputRootRdfParse>, IActionRootRdfParse, IActorTestRootRdfParse, IActorOutputRootRdfParse>;
 }
 
-export interface IParseOptions {
+export type ParseOptions = {
   /**
    * The content type of the incoming stream.
    */
@@ -84,4 +125,13 @@ export interface IParseOptions {
    * An optional base IRI of stream's document.
    */
   baseIRI?: string;
-}
+} | {
+  /**
+   * The file name or URL that is being parsed.
+   */
+  path: string;
+  /**
+   * An optional base IRI of stream's document.
+   */
+  baseIRI?: string;
+};

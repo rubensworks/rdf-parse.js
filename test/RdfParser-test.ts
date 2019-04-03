@@ -37,11 +37,28 @@ describe('parser', () => {
     });
   });
 
-  it('should fail to parse without content type', () => {
+  it('should fail to parse without content type and path', () => {
     const stream = stringToStream(`
 <http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
 `);
-    return expect(() => parser.parse(stream, {})).toThrow(new Error('Missing \'contentType\' option while parsing.'));
+    return expect(() => parser.parse(stream, {}))
+      .toThrow(new Error('Missing \'contentType\' or \'path\' option while parsing.'));
+  });
+
+  it('should fail to parse with path without extension', () => {
+    const stream = stringToStream(`
+<http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
+`);
+    return expect(() => parser.parse(stream, { path: 'abc' }))
+      .toThrow(new Error('No valid extension could be detected from the given \'path\' option: \'abc\''));
+  });
+
+  it('should fail to parse with path with unknown extension', () => {
+    const stream = stringToStream(`
+<http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
+`);
+    return expect(() => parser.parse(stream, { path: 'abc.unknown' }))
+      .toThrow(new Error('No valid extension could be detected from the given \'path\' option: \'abc.unknown\''));
   });
 
   it('should parse text/turtle without baseIRI', () => {
@@ -49,6 +66,16 @@ describe('parser', () => {
 <http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
 `);
     return expect(arrayifyStream(parser.parse(stream, { contentType: 'text/turtle' }))).resolves.toBeRdfIsomorphic([
+      quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+      quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
+    ]);
+  });
+
+  it('should parse text/turtle without baseIRI by path', () => {
+    const stream = stringToStream(`
+<http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
+`);
+    return expect(arrayifyStream(parser.parse(stream, { path: 'myfile.ttl' }))).resolves.toBeRdfIsomorphic([
       quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
       quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
     ]);
@@ -99,6 +126,25 @@ describe('parser', () => {
 `);
     return expect(arrayifyStream(parser
       .parse(stream, { contentType: 'application/ld+json', baseIRI: 'http://ex.org/' })))
+      .resolves.toBeRdfIsomorphic([
+        quad('http://ex.org/', 'http://schema.org/name', '"Jane Doe"'),
+        quad('http://ex.org/', 'http://schema.org/url', 'http://ex.org/'),
+        quad('http://ex.org/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://schema.org/Person'),
+      ]);
+  });
+
+  it('should parse application/ld+json with baseIRI by path', () => {
+    const stream = stringToStream(`
+{
+  "@context": "http://schema.org/",
+  "@type": "Person",
+  "@id": "",
+  "name": "Jane Doe",
+  "url": ""
+}
+`);
+    return expect(arrayifyStream(parser
+      .parse(stream, { path: 'myfile.json', baseIRI: 'http://ex.org/' })))
       .resolves.toBeRdfIsomorphic([
         quad('http://ex.org/', 'http://schema.org/name', '"Jane Doe"'),
         quad('http://ex.org/', 'http://schema.org/url', 'http://ex.org/'),

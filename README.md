@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/rubensworks/rdf-parse.js/badge.svg?branch=master)](https://coveralls.io/github/rubensworks/rdf-parse.js?branch=master)
 [![npm version](https://badge.fury.io/js/rdf-parse.svg)](https://www.npmjs.com/package/rdf-parse) [![Greenkeeper badge](https://badges.greenkeeper.io/rubensworks/rdf-parse.js.svg)](https://greenkeeper.io/)
 
-This library parses _RDF streams_ based on _content type_
+This library parses _RDF streams_ based on _content type_ (or file name)
 and outputs [RDFJS](http://rdf.js.org/)-compliant quads as a stream.
 
 This is useful in situations where you have _RDF in some serialization_,
@@ -13,15 +13,15 @@ without having to concern yourself with picking the correct parser.
 
 The following RDF serializations are supported:
 
-| **Name** | **Content type** |
-| -------- | ---------------- |
-| [TriG](https://www.w3.org/TR/trig/) | `application/trig` |
-| [N-Quads](https://www.w3.org/TR/n-quads/) | `application/n-quads` |
-| [Turtle](https://www.w3.org/TR/turtle/) | `text/turtle` |
-| [N-Triples](https://www.w3.org/TR/n-triples/) | `application/n-triples` |
-| [Notation3](https://www.w3.org/TeamSubmission/n3/) | `text/n3` |
-| [JSON-LD](https://json-ld.org/) | `application/ld+json`, `application/json` |
-| [RDF/XML](https://www.w3.org/TR/rdf-syntax-grammar/) | `application/rdf+xml` |
+| **Name** | **Content type** | **Extensions** |
+| -------- | ---------------- | ------------- |
+| [TriG](https://www.w3.org/TR/trig/) | `application/trig` | `.trig` |
+| [N-Quads](https://www.w3.org/TR/n-quads/) | `application/n-quads` | `.nq`, `.nquads` |
+| [Turtle](https://www.w3.org/TR/turtle/) | `text/turtle` | `.ttl`, `.turtle` |
+| [N-Triples](https://www.w3.org/TR/n-triples/) | `application/n-triples` | `.nt`, `.ntriples` |
+| [Notation3](https://www.w3.org/TeamSubmission/n3/) | `text/n3` | `.n3` |
+| [JSON-LD](https://json-ld.org/) | `application/ld+json`, `application/json` | `.json`, `.jsonld` |
+| [RDF/XML](https://www.w3.org/TR/rdf-syntax-grammar/) | `application/rdf+xml` | `.rdf`, `.rdfxml`, `.owl` |
 
 Internally, this library makes use of RDF parsers from the [Comunica framework](https://github.com/comunica/comunica),
 which enable streaming processing of RDF.
@@ -65,6 +65,25 @@ const textStream = require('streamify-string')(`
 `);
 
 rdfParser.parse(textStream, { contentType: 'text/turtle', baseIRI: 'http://example.org' })
+    .on('data', (quad) => console.log(quad))
+    .on('error', (error) => console.error(error))
+    .on('end', () => console.log('All done!'));
+```
+
+### Parsing by file name
+
+Sometimes, the content type of an RDF document may be unknown,
+for those cases, this library allows you to provide the path/URL of the RDF document,
+using which the extension will be determined.
+
+For example, Turtle documents can be detected using the `.ttl` extension.
+
+```javascript
+const textStream = require('streamify-string')(`
+<http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
+`);
+
+rdfParser.parse(textStream, { path: 'http://example.org/myfile.ttl', baseIRI: 'http://example.org' })
     .on('data', (quad) => console.log(quad))
     .on('error', (error) => console.error(error))
     .on('end', () => console.log('All done!'));
