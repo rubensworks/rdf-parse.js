@@ -88,8 +88,8 @@
   },
   "dependencies": {
     "@types/rdf-js": "^2.0.1",
-    "@comunica/actor-rdf-parse-n3": "1.6.3",
-    "@comunica/actor-rdf-parse-jsonld": "^1.6.6",
+    "@comunica/actor-rdf-parse-n3": "^1.7.1",
+    "@comunica/actor-rdf-parse-jsonld": "^1.7.1",
     "@comunica/actor-rdf-parse-rdfxml": "^1.6.3",
     "@comunica/bus-rdf-parse": "^1.6.3",
     "@comunica/core": "^1.6.3",

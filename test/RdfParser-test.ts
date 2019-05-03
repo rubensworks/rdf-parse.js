@@ -26,13 +26,13 @@ describe('parser', () => {
 
   it('should get all prioritized content types', async () => {
     expect(await parser.getContentTypesPrioritized()).toEqual({
-      'application/json': 0.09000000000000001,
+      'application/json': 0.45,
       'application/ld+json': 0.9,
       'application/n-quads': 0.7,
       'application/n-triples': 0.3,
-      'application/rdf+xml': 0.85,
+      'application/rdf+xml': 0.5,
       'application/trig': 1,
-      'text/n3': 0.2,
+      'text/n3': 0.1,
       'text/turtle': 0.6,
     });
   });

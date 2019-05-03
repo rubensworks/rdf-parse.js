@@ -38,7 +38,7 @@
     {
       "@id": "config:myRdfParserRdfXml",
       "@type": "ActorRdfParseRdfXml",
-      "priorityScale": 0.85
+      "priorityScale": 0.5
     }
   ]
 }
