@@ -153,10 +153,10 @@
   dependencies:
     jsonld-streaming-parser "^1.1.0"
 
-"@comunica/actor-rdf-parse-n3@1.6.3":
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/@comunica/actor-rdf-parse-n3/-/actor-rdf-parse-n3-1.6.3.tgz#42aa97f81763f4bae053ee91e41e42a70435825c"
-  integrity sha512-23P7oMtHg7QaKFzqckELR9mX68xv8X9ARPLGjakTItTgUkeOFWnSd7qncwO9PrVOtoiW5NP+BHJhCGMbefqNvA==
+"@comunica/actor-rdf-parse-n3@1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@comunica/actor-rdf-parse-n3/-/actor-rdf-parse-n3-1.7.1.tgz#30cfff61d1798ed680a31c15fe9e01097322a01b"
+  integrity sha512-6YBdp0nJ2ecS3btAS+dv+mYrOMNinIP4XysukXKS23PzhUzvGf2TCLLPDvHhZlKdO/QFqsrKRCl/t4zJQ5JJcw==
   dependencies:
     n3 "^1.0.0"
 
