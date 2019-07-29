@@ -21,6 +21,11 @@ describe('parser', () => {
       'application/ld+json',
       'application/json',
       'application/rdf+xml',
+      'application/xml',
+      'text/xml',
+      'image/svg+xml',
+      'text/html',
+      'application/xhtml+xml',
     ]);
   });
 
@@ -32,8 +37,13 @@ describe('parser', () => {
       'application/n-triples': 0.3,
       'application/rdf+xml': 0.5,
       'application/trig': 1,
+      'application/xhtml+xml': 0.7200000000000001,
+      'application/xml': 0.5,
+      'image/svg+xml': 0.5,
+      'text/html': 0.8,
       'text/n3': 0.1,
       'text/turtle': 0.6,
+      'text/xml': 0.5,
     });
   });
 
@@ -164,5 +174,20 @@ describe('parser', () => {
     const stream = stringToStream(``);
     return expect(arrayifyStream(parser.parse(stream, { contentType: 'unknown' })))
       .rejects.toBeTruthy();
+  });
+
+  it('should parse text/html with baseIRI', () => {
+    const stream = stringToStream(`
+<html>
+<head>
+<title property="schema:name">Title</title>
+</head>
+</html>
+`);
+    return expect(arrayifyStream(parser
+      .parse(stream, { contentType: 'text/html', baseIRI: 'http://ex.org/' })))
+      .resolves.toBeRdfIsomorphic([
+        quad('http://ex.org/', 'http://schema.org/name', '"Title"'),
+      ]);
   });
 });
