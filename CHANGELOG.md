@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.1.1"></a>
+## [v1.1.1](https://github.com/rubensworks/rdf-parse.js/compare/v1.1.0...v1.1.1) - 2019-09-17
+
+### Fixed
+* [Add Components.js files to published package](https://github.com/rubensworks/rdf-parse.js/commit/1741ba9b488ce2fcc3e298a5d27def0e2734b440)
+
 <a name="v1.1.0"></a>
 ## [v1.1.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.0.0...v1.1.0) - 2019-07-29
 
