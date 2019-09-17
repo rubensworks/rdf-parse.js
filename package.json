@@ -30,6 +30,8 @@
   "files": [
     "lib/**/*.d.ts",
     "lib/**/*.js",
+    "config",
+    "components",
     "engine-default.js",
     "index.d.ts",
     "index.js"
