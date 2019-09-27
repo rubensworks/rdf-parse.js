@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.1.2"></a>
+## [v1.1.2](https://github.com/rubensworks/rdf-parse.js/compare/v1.1.1...v1.1.2) - 2019-09-27
+
+### Changed
+* [Update to Comunica 1.9.2, Closes #6](https://github.com/rubensworks/rdf-parse.js/commit/4921877f4ce53be257966bec969cc5f315ef5172)
+
 <a name="v1.1.1"></a>
 ## [v1.1.1](https://github.com/rubensworks/rdf-parse.js/compare/v1.1.0...v1.1.1) - 2019-09-17
 
