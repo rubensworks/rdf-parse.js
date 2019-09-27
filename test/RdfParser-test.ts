@@ -18,14 +18,14 @@ describe('parser', () => {
       'text/turtle',
       'application/n-triples',
       'text/n3',
-      'application/ld+json',
-      'application/json',
       'application/rdf+xml',
       'application/xml',
       'text/xml',
       'image/svg+xml',
       'text/html',
       'application/xhtml+xml',
+      'application/ld+json',
+      'application/json',
     ]);
   });
 
