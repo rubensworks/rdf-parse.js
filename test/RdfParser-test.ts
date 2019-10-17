@@ -13,10 +13,10 @@ describe('parser', () => {
 
   it('should get all content types', async () => {
     expect(await parser.getContentTypes()).toEqual([
-      'application/trig',
       'application/n-quads',
-      'text/turtle',
+      'application/trig',
       'application/n-triples',
+      'text/turtle',
       'text/n3',
       'application/rdf+xml',
       'application/xml',
@@ -33,17 +33,17 @@ describe('parser', () => {
     expect(await parser.getContentTypesPrioritized()).toEqual({
       'application/json': 0.45,
       'application/ld+json': 0.9,
-      'application/n-quads': 0.7,
-      'application/n-triples': 0.3,
+      'application/n-quads': 1,
+      'application/n-triples': 0.8,
       'application/rdf+xml': 0.5,
-      'application/trig': 1,
-      'application/xhtml+xml': 0.7200000000000001,
-      'application/xml': 0.5,
-      'image/svg+xml': 0.5,
-      'text/html': 0.8,
-      'text/n3': 0.1,
-      'text/turtle': 0.6,
-      'text/xml': 0.5,
+      'application/trig': 0.95,
+      'application/xhtml+xml': 0.18000000000000002,
+      'application/xml': 0.3,
+      'image/svg+xml': 0.3,
+      'text/html': 0.2,
+      'text/n3': 0.35,
+      'text/turtle': 0.5,
+      'text/xml': 0.3,
     });
   });
 

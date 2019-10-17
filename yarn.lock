@@ -173,19 +173,20 @@
   dependencies:
     htmlparser2 "^4.0.0"
 
-"@comunica/actor-rdf-parse-jsonld@^1.9.2":
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/@comunica/actor-rdf-parse-jsonld/-/actor-rdf-parse-jsonld-1.9.2.tgz#19e9ed39f2dfa1279aaef91d6ed706503cf88e43"
-  integrity sha512-I7wYbewz/da/G4ufVValhU6PvhJNSipe0xx9N3Du3rIl9YWLL82F248J4qIMcvFqdQjbwaG3y43GRPY+QHmtkw==
+"@comunica/actor-rdf-parse-jsonld@^1.9.3":
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/@comunica/actor-rdf-parse-jsonld/-/actor-rdf-parse-jsonld-1.9.3.tgz#a5d9882a1746fdae9c8d35a37e25c7c6a47d1320"
+  integrity sha512-NmWftX7ngxrdfZVm0YvEOcQq6Tou+WYLvoSgLygoFnGjnu5EbJkhLHdJD0mYwZrLJHVFVc5V+wsEj6JSqZoi2w==
   dependencies:
     "@types/http-link-header" "^1.0.1"
     http-link-header "^1.0.2"
     jsonld-streaming-parser "^1.1.0"
+    stream-to-string "^1.2.0"
 
-"@comunica/actor-rdf-parse-n3@^1.9.2":
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/@comunica/actor-rdf-parse-n3/-/actor-rdf-parse-n3-1.9.2.tgz#fe02d9e45a2d8b3cc9a0bc6d5e804e09a0fb7c6b"
-  integrity sha512-PUeXjQ3lvaMEUER7XLTF/REURHVObeBFcQ8clmmH7hy+v3ierp5asr57hQvtL0S9nyt0Hfa0AV5adjzWgHT/Cg==
+"@comunica/actor-rdf-parse-n3@^1.9.3":
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/@comunica/actor-rdf-parse-n3/-/actor-rdf-parse-n3-1.9.3.tgz#75730ecfa519f6d57957ca2f2993001a9ddae340"
+  integrity sha512-K5lijBYoGkFtV/zSy98I3xcn6/vtfHVQ0koTsYF5/dizNKvbVmlbngihfyIlc1NpywIn2A0dRkYC1B9DlTLEzQ==
   dependencies:
     n3 "^1.0.0"
 
