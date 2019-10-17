@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.2.0"></a>
+## [v1.2.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.1.2...v1.2.0) - 2019-10-17
+
+### Changed
+* [Tweak RDF media type priorities to Comunica 1.9.3, Closes #8](https://github.com/rubensworks/rdf-parse.js/commit/25f245ad67ecba1777e4702a643b7b9506b00649)
+
 <a name="v1.1.2"></a>
 ## [v1.1.2](https://github.com/rubensworks/rdf-parse.js/compare/v1.1.1...v1.1.2) - 2019-09-27
 
