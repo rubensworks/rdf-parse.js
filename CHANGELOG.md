@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.2.1"></a>
+## [v1.2.1](https://github.com/rubensworks/rdf-parse.js/compare/v1.1.2...v1.2.1) - 2019-10-21
+
+### Fixed
+* [Avoid circular importing of parser](https://github.com/rubensworks/rdf-parse.js/commit/fa0eed536f651f2a094a26130ac9fffdc7351cb6)
+
 <a name="v1.2.0"></a>
 ## [v1.2.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.1.2...v1.2.0) - 2019-10-17
 
