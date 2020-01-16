@@ -45,7 +45,7 @@
     "@comunica/runner": "^1.9.4",
     "@rdfjs/data-model": "^1.1.1",
     "@types/jest": "^24.0.0",
-    "@types/n3": "^1.0.4",
+    "@types/n3": "^1.1.4",
     "arrayify-stream": "^1.0.0",
     "coveralls": "^3.0.0",
     "jest": "^24.7.0",
@@ -105,7 +105,7 @@
     "@comunica/mediator-combine-union": "^1.9.2",
     "@comunica/mediator-number": "^1.9.2",
     "@comunica/mediator-race": "^1.9.2",
-    "@types/rdf-js": "^2.0.1",
+    "@types/rdf-js": "^2.0.8",
     "stream-to-string": "^1.2.0"
   }
 }
