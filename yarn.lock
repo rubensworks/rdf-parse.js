@@ -213,6 +213,11 @@
     is-stream "^2.0.0"
     web-streams-node "^0.4.0"
 
+"@comunica/bus-init@^1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@comunica/bus-init/-/bus-init-1.9.2.tgz#5c547700bf15d9bf2e5b4706781e4b0abc32ec88"
+  integrity sha512-m6oG7L2opZ7TxTDlovg7/vFb7AEBRgplsu2sGjsDGo9gwxxQyLxfg1rG7Op6c4QtKzFY30oNODuKp9XE2Ks2jg==
+
 "@comunica/bus-rdf-parse-html@^1.9.2":
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/@comunica/bus-rdf-parse-html/-/bus-rdf-parse-html-1.9.2.tgz#dcd4298da7e02fe0eb74c8ddc108f7055725aa27"
