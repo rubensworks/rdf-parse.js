@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.2.2"></a>
+## [v1.2.2](https://github.com/rubensworks/rdf-parse.js/compare/v1.2.1...v1.2.2) - 2020-03-09
+
+### Fixed
+* [Add missing bus-init actor, Closes #13](https://github.com/rubensworks/rdf-parse.js/commit/df5d976fda03e60051b33bf8d66cec60207e0743)
+
 <a name="v1.2.1"></a>
 ## [v1.2.1](https://github.com/rubensworks/rdf-parse.js/compare/v1.1.2...v1.2.1) - 2019-10-21
 
