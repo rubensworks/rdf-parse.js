@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/rubensworks/rdf-parse.js.svg?branch=master)](https://travis-ci.org/rubensworks/rdf-parse.js)
 [![Coverage Status](https://coveralls.io/repos/github/rubensworks/rdf-parse.js/badge.svg?branch=master)](https://coveralls.io/github/rubensworks/rdf-parse.js?branch=master)
-[![npm version](https://badge.fury.io/js/rdf-parse.svg)](https://www.npmjs.com/package/rdf-parse) [![Greenkeeper badge](https://badges.greenkeeper.io/rubensworks/rdf-parse.js.svg)](https://greenkeeper.io/)
+[![npm version](https://badge.fury.io/js/rdf-parse.svg)](https://www.npmjs.com/package/rdf-parse)
 
 This library parses _RDF streams_ based on _content type_ (or file name)
 and outputs [RDFJS](http://rdf.js.org/)-compliant quads as a stream.
