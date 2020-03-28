@@ -78,8 +78,11 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
     };
 
     // Delegate parsing to the mediator
-    this.mediatorRdfParseHandle.mediate(
-      { context: ActionContext({}), handle: { input: stream, baseIRI: options.baseIRI }, handleMediaType: contentType })
+    this.mediatorRdfParseHandle.mediate({
+      context: ActionContext(options),
+      handle: { input: stream, baseIRI: options.baseIRI },
+      handleMediaType: contentType,
+    })
       .then((output) => {
         const quads: RDF.Stream = output.handle.quads;
         quads.on('error', (e) => readable.emit('error', e));
