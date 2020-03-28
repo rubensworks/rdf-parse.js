@@ -7,8 +7,10 @@ script:
   - npm run build
   - npm run lint
   - npm test
+  - npm run spec
 after_success:
   - npm run coveralls
 cache:
-  directories:
-    - node_modules
+  - npm
+  - directories:
+    - .rdf-test-suite-cache
