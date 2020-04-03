@@ -22,7 +22,7 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
     n3       : "text/n3",
     trig     : "application/trig",
     jsonld   : "application/ld+json",
-    json     : "application/json",
+    json     : "application/ld+json",
   };
 
   public readonly mediatorRdfParseMediatypes: Mediator<Actor<IActionRootRdfParse, IActorTestRootRdfParse,
