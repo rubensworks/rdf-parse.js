@@ -112,7 +112,7 @@
     "@comunica/mediator-combine-union": "~1.9.2",
     "@comunica/mediator-number": "~1.9.2",
     "@comunica/mediator-race": "~1.9.2",
-    "@types/rdf-js": "^2.0.11",
+    "@types/rdf-js": "^3.0.0",
     "stream-to-string": "^1.2.0"
   }
 }
