@@ -81,7 +81,7 @@
     "testEnvironment": "node"
   },
   "scripts": {
-    "test": "jest ${1}",
+    "test": "jest ${1} --forceExit",
     "test-watch": "jest ${1} --watch",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "lint": "tslint index.ts lib/**/*.ts test/**/*.ts --exclude '**/*.d.ts'",
