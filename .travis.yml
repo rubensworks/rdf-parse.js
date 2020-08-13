@@ -1,8 +1,5 @@
 import: rubensworks/travis-presets:node.yml@master
 script:
-  - npm run build
-  - npm run lint
-  - npm test
   - npm run spec
 cache:
   - npm
