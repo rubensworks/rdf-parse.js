@@ -13,19 +13,19 @@ describe('parser', () => {
 
   it('should get all content types', async () => {
     expect(await parser.getContentTypes()).toEqual([
+      'application/ld+json',
+      'application/json',
+      'text/html',
+      'application/xhtml+xml',
+      'application/xml',
+      'text/xml',
+      'image/svg+xml',
+      'application/rdf+xml',
       'application/n-quads',
       'application/trig',
       'application/n-triples',
       'text/turtle',
       'text/n3',
-      'application/rdf+xml',
-      'application/xml',
-      'text/xml',
-      'image/svg+xml',
-      'text/html',
-      'application/xhtml+xml',
-      'application/ld+json',
-      'application/json',
     ]);
   });
 
