@@ -51,7 +51,7 @@ describe('parser', () => {
     const stream = stringToStream(`
 <http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
 `);
-    return expect(() => parser.parse(stream, {}))
+    return expect(() => parser.parse(stream, <any> {}))
       .toThrow(new Error('Missing \'contentType\' or \'path\' option while parsing.'));
   });
 
