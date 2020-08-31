@@ -67,7 +67,7 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
    * @param {IParseOptions} options Parsing options.
    * @return {Stream} An RDFJS quad stream.
    */
-  public parse(stream: NodeJS.ReadableStream, options: ParseOptions): RDF.Stream {
+  public parse(stream: NodeJS.ReadableStream, options: ParseOptions): RDF.Stream & Readable {
     let contentType: string;
     if ('contentType' in options) {
       contentType = options.contentType;
