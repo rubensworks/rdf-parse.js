@@ -69,9 +69,9 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
    */
   public parse(stream: NodeJS.ReadableStream, options: ParseOptions): RDF.Stream & Readable {
     let contentType: string;
-    if ('contentType' in options) {
+    if ('contentType' in options && options.contentType) {
       contentType = options.contentType;
-    } else if ('path' in options) {
+    } else if ('path' in options && options.path) {
       contentType = this.getContentTypeFromExtension(options.path);
       if (!contentType) {
         throw new Error(`No valid extension could be detected from the given 'path' option: '${options.path}'`);
