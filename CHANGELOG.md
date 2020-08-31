@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.5.0"></a>
+## [v1.5.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.4.0...v1.5.0) - 2020-08-31
+
+### Changed
+* [Mark parsed stream as readable](https://github.com/rubensworks/rdf-parse.js/commit/7cb0dc71f95a6d17353a0c493a75774df8685e29)
+* [Expose parser typings](https://github.com/rubensworks/rdf-parse.js/commit/d0124e764e0b6c85bbb023f2622cea14fdd748b8)
+
 <a name="v1.4.0"></a>
 ## [v1.4.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.3.1...v1.4.0) - 2020-08-24
 

@@ -1,6 +1,6 @@
 {
   "name": "rdf-parse",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Parses RDF from any serialization",
   "lsd:module": "https://linkedsoftwaredependencies.org/bundles/npm/rdf-parse",
   "lsd:components": "components/components.jsonld",
