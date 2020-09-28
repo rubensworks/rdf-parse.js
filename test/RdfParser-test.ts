@@ -42,7 +42,7 @@ describe('parser', () => {
       'image/svg+xml': 0.3,
       'text/html': 0.2,
       'text/n3': 0.35,
-      'text/turtle': 0.5,
+      'text/turtle': 0.6,
       'text/xml': 0.3,
     });
   });
