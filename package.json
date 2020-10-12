@@ -42,18 +42,18 @@
     "test"
   ],
   "devDependencies": {
-    "@comunica/runner": "^1.9.4",
-    "@rdfjs/data-model": "^1.1.2",
+    "@comunica/runner": "^1.17.0",
+    "rdf-data-factory": "^1.0.3",
     "@types/jest": "^26.0.0",
-    "@types/n3": "^1.1.4",
+    "@types/n3": "^1.4.4",
     "arrayify-stream": "^1.0.0",
     "coveralls": "^3.0.0",
     "jest": "^26.0.0",
-    "jest-rdf": "^1.3.0",
+    "jest-rdf": "^1.6.0",
     "manual-git-changelog": "^1.0.1",
     "pre-commit": "^1.2.2",
-    "rdf-quad": "^1.3.0",
-    "rdf-test-suite": "^1.13.0",
+    "rdf-quad": "^1.5.0",
+    "rdf-test-suite": "^1.15.0",
     "streamify-string": "^1.0.1",
     "ts-jest": "^26.0.0",
     "tslint": "^6.0.0",
@@ -112,7 +112,7 @@
     "@comunica/mediator-combine-union": "~1.17.0",
     "@comunica/mediator-number": "~1.17.0",
     "@comunica/mediator-race": "~1.17.0",
-    "@types/rdf-js": "^3.0.0",
+    "@types/rdf-js": "*",
     "stream-to-string": "^1.2.0"
   }
 }
