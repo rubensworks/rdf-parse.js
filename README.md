@@ -23,6 +23,7 @@ The following RDF serializations are supported:
 | [JSON-LD](https://json-ld.org/) | `application/ld+json`, `application/json` | `.json`, `.jsonld` |
 | [RDF/XML](https://www.w3.org/TR/rdf-syntax-grammar/) | `application/rdf+xml` | `.rdf`, `.rdfxml`, `.owl` |
 | [RDFa](https://www.w3.org/TR/rdfa-in-html/) and script RDF data tags [HTML](https://html.spec.whatwg.org/multipage/)/[XHTML](https://www.w3.org/TR/xhtml-rdfa/) | `text/html`, `application/xhtml+xml` | `.html`, `.htm`, `.xhtml`, `.xht` |
+| [Microdata](https://w3c.github.io/microdata-rdf/) | `text/html`, `application/xhtml+xml` | `.html`, `.htm`, `.xhtml`, `.xht` |
 | [RDFa](https://www.w3.org/TR/2008/REC-SVGTiny12-20081222/metadata.html#MetadataAttributes) in [SVG](https://www.w3.org/TR/SVGTiny12/)/[XML](https://html.spec.whatwg.org/multipage/) | `image/svg+xml`,`application/xml` | `.xml`, `.svg`, `.svgz` |
 
 Internally, this library makes use of RDF parsers from the [Comunica framework](https://github.com/comunica/comunica),
@@ -32,6 +33,7 @@ Internally, the following fully spec-compliant parsers are used:
 
 * [N3.js](https://github.com/rdfjs/n3.js)
 * [jsonld-streaming-parser.js](https://github.com/rubensworks/jsonld-streaming-parser.js)
+* [microdata-rdf-streaming-parser.js](https://github.com/rubensworks/microdata-rdf-streaming-parser.js)
 * [rdfa-streaming-parser.js](https://github.com/rubensworks/rdfa-streaming-parser.js)
 * [rdfxml-streaming-parser.js](https://github.com/rdfjs/rdfxml-streaming-parser.js)
 
