@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.6.0"></a>
+## [v1.6.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.5.0...v1.6.0) - 2020-11-03
+
+### Added
+* [Add Microdata to RDF in HTML parser](https://github.com/rubensworks/rdf-parse.js/commit/756ffa32a23b190381809c685d7837f8e969ec5e)
+
+### Changed
+* [Update to latest RDF/JS typings](https://github.com/rubensworks/rdf-parse.js/commit/a6724f2b2c5f23dea37be6b965bc07049f9b1b1e)
+* [Add stricter checks for contentType and path](https://github.com/rubensworks/rdf-parse.js/commit/641c4f7ee475a47a8510694e974cff5143a88442)
+
 <a name="v1.5.0"></a>
 ## [v1.5.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.4.0...v1.5.0) - 2020-08-31
 
