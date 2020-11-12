@@ -89,7 +89,7 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
     // Delegate parsing to the mediator
     this.mediatorRdfParseHandle.mediate({
       context: ActionContext(options),
-      handle: { input: stream, baseIRI: options.baseIRI },
+      handle: { input: stream, baseIRI: <string> options.baseIRI },
       handleMediaType: contentType,
     })
       .then((output) => {
