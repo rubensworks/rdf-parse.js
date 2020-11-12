@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.6.1"></a>
+## [v1.6.1](https://github.com/rubensworks/rdf-parse.js/compare/v1.6.0...v1.6.1) - 2020-11-12
+
+### Fixed
+* [Fix backpressuring not being maintained](https://github.com/rubensworks/rdf-parse.js/commit/269c757935c54b388e1bde076dc29c2afc2e8e7b)
+
 <a name="v1.6.0"></a>
 ## [v1.6.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.5.0...v1.6.0) - 2020-11-03
 
