@@ -8,7 +8,7 @@ import {
 } from "@comunica/bus-rdf-parse";
 import {ActionContext, Actor, Mediator} from "@comunica/core";
 import * as RDF from "rdf-js";
-import {Readable} from "stream";
+import {Readable, PassThrough} from "stream";
 
 /**
  * An RdfParser can parse any RDF serialization, based on a given content type.
@@ -81,10 +81,7 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
     }
 
     // Create a new readable
-    const readable = new Readable({ objectMode: true });
-    readable._read = () => {
-      return;
-    };
+    const readable = new PassThrough({ objectMode: true });
 
     // Delegate parsing to the mediator
     this.mediatorRdfParseHandle.mediate({
@@ -93,10 +90,9 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
       handleMediaType: contentType,
     })
       .then((output) => {
-        const quads: RDF.Stream = output.handle.quads;
+        const quads = <Readable> output.handle.quads;
         quads.on('error', (e) => readable.emit('error', e));
-        quads.on('data', (quad) => readable.push(quad));
-        quads.on('end', () => readable.push(null));
+        quads.pipe(readable);
       })
       .catch((e) => readable.emit('error', e));
 
