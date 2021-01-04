@@ -56,7 +56,7 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
    * Get a hash of all available content types for this parser, mapped to a numerical priority.
    * @return {Promise<{[p: string]: number}>} A promise resolving to a hash mapping content type to a priority number.
    */
-  public async getContentTypesPrioritized(): Promise<{[contenType: string]: number}> {
+  public async getContentTypesPrioritized(): Promise<{[contentType: string]: number}> {
     return (await this.mediatorRdfParseMediatypes.mediate(
       { context: ActionContext({}), mediaTypes: true })).mediaTypes;
   }
