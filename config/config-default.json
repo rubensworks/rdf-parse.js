@@ -35,16 +35,16 @@
   },
   "parsers": [
     {
-      "@id": "config-sets:rdf-parsers.json#myRdfParserN3",
+      "@id": "config:myRdfParserN3",
       "@type": "ActorRdfParseN3",
       "priorityScale": 1.0
     },
     {
-      "@id": "config-sets:rdf-parsers.json#myRdfParserJsonLd",
+      "@id": "config:myRdfParserJsonLd",
       "@type": "ActorRdfParseJsonLd",
       "priorityScale": 0.9,
       "crpjl:Actor/RdfParse/JsonLd/mediatorHttp": {
-        "@id": "config-sets:rdf-parsers.json#mediatorHttp",
+        "@id": "config:mediatorHttp",
         "@type": "MediatorNumberMin",
         "field": "time",
         "ignoreErrors": true,
@@ -52,37 +52,37 @@
       }
     },
     {
-      "@id": "config-sets:rdf-parsers.json#myRdfParserRdfXml",
+      "@id": "config:myRdfParserRdfXml",
       "@type": "ActorRdfParseRdfXml",
       "priorityScale": 0.5
     },
     {
-      "@id": "config-sets:rdf-parsers.json#myRdfParserXmlRdfa",
+      "@id": "config:myRdfParserXmlRdfa",
       "@type": "ActorRdfParseXmlRdfa",
       "priorityScale": 0.3
     },
     {
-      "@id": "config-sets:rdf-parsers.json#myRdfParserHtml",
+      "@id": "config:myRdfParserHtml",
       "@type": "ActorRdfParseHtml",
       "priorityScale": 0.2
     },
 
     {
-      "@id": "config-sets:rdf-parsers.json#myRdfParserHtmlMicrodata",
+      "@id": "config:myRdfParserHtmlMicrodata",
       "@type": "ActorRdfParseHtmlMicrodata"
     },
     {
-      "@id": "config-sets:rdf-parsers.json#myRdfParserHtmlRdfa",
+      "@id": "config:myRdfParserHtmlRdfa",
       "@type": "ActorRdfParseHtmlRdfa"
     },
     {
-      "@id": "config-sets:rdf-parsers.json#myRdfParserHtmlScript",
+      "@id": "config:myRdfParserHtmlScript",
       "@type": "ActorRdfParseHtmlScript",
       "carphs:mediatorRdfParseMediatypes": { "@id": "config:mediatorRdfParseMediatypes" },
       "carphs:mediatorRdfParseHandle": { "@id": "config:mediatorRdfParseHandle" }
     },
     {
-      "@id": "config-sets:http.json#myHttpFetcher",
+      "@id": "config:myHttpFetcher",
       "@type": "ActorHttpNative"
     }
   ]
