@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.8.0"></a>
+## [v1.8.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.7.0...v1.8.0) - 2021-04-27
+
+### Changed
+* [Update to Comunica 1.21](https://github.com/rubensworks/rdf-parse.js/commit/b9d0f4affd63fa23c399d7d79243381b3b9a32c7)
+* [Use more compact Components.js declaration in package.json](https://github.com/rubensworks/rdf-parse.js/commit/43780d421c462119a9b80861d25dfe4bcf9537cd)
+
 <a name="v1.7.0"></a>
 ## [v1.7.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.6.1...v1.7.0) - 2021-01-15
 
