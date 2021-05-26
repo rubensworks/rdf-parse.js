@@ -47,7 +47,7 @@
     "rdf-quad": "^1.5.0",
     "rdf-test-suite": "^1.15.0",
     "streamify-string": "^1.0.1",
-    "ts-jest": "^26.0.0",
+    "ts-jest": "^27.0.0",
     "tslint": "^6.0.0",
     "tslint-eslint-rules": "^5.3.1",
     "typescript": "^4.0.0"
