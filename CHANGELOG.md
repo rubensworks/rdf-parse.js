@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.8.1"></a>
+## [v1.8.1](https://github.com/rubensworks/rdf-parse.js/compare/v1.8.0...v1.8.1) - 2021-06-14
+
+### Changed
+* [Bump Comunica to 1.21.2](https://github.com/rubensworks/rdf-parse.js/commit/1685a074835a8b336cc3d79b0cf6446528bcc848)
+
 <a name="v1.8.0"></a>
 ## [v1.8.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.7.0...v1.8.0) - 2021-04-27
 
