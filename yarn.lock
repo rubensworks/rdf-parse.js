@@ -578,15 +578,15 @@
     jsonld-streaming-parser "^2.1.1"
     stream-to-string "^1.2.0"
 
-"@comunica/actor-rdf-parse-jsonld@~1.21.1":
-  version "1.21.1"
-  resolved "https://registry.yarnpkg.com/@comunica/actor-rdf-parse-jsonld/-/actor-rdf-parse-jsonld-1.21.1.tgz#26eaf5f62fc6c4c242b538b44b3291836ee0641f"
-  integrity sha512-0pnZJUQ5bhaUwM7pQNr1afmoVKMmnYhJHdub9j/l2jAJWJFbVWucZI9z/g7r9Tek4SBS6PcM2+2sx8U9+WiiIA==
+"@comunica/actor-rdf-parse-jsonld@~1.21.2":
+  version "1.21.2"
+  resolved "https://registry.yarnpkg.com/@comunica/actor-rdf-parse-jsonld/-/actor-rdf-parse-jsonld-1.21.2.tgz#f2fe479db3a5fba32154e4f1bf1eb2149459cf6a"
+  integrity sha512-YUiYo2EJ9T1oUGgBwzzPRjXT+cd/xckWbtfYBzr7RugXeKjrVai8atnV1OsPc0u5iPZCTkiVCO9sI/Q6M7ig2w==
   dependencies:
     "@comunica/context-entries" "^1.21.1"
     "@types/rdf-js" "*"
     jsonld-context-parser "^2.1.2"
-    jsonld-streaming-parser "^2.3.0"
+    jsonld-streaming-parser "^2.3.2"
     stream-to-string "^1.2.0"
 
 "@comunica/actor-rdf-parse-n3@~1.19.0":
@@ -3045,10 +3045,10 @@ jsonld-streaming-parser@^2.1.0, jsonld-streaming-parser@^2.1.1:
     jsonparse "^1.3.1"
     rdf-data-factory "^1.0.2"
 
-jsonld-streaming-parser@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/jsonld-streaming-parser/-/jsonld-streaming-parser-2.3.0.tgz#7417fc867c9fefbf7452259f0b78e707e0c357fa"
-  integrity sha512-IJiFhX9GQ/uLugd3BSYgJDaisAc22fV2Ij7tH0yWG8KZpriSGadRVvxUkfglzRKSjqxYBsZ+qAQ+UR7YGwiHRQ==
+jsonld-streaming-parser@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/jsonld-streaming-parser/-/jsonld-streaming-parser-2.3.2.tgz#a3e1bd405a500186cc12b0f1fcee8a97b8392dd4"
+  integrity sha512-C9hyL5LRb2K0eaS5biP+ixUtMjr3UPJn9WInNYAmjX9tL7NzeSw3lY7nW3GEnKETxF3I3btvEPR1Nm/+tHMWZQ==
   dependencies:
     "@types/http-link-header" "^1.0.1"
     "@types/rdf-js" "^4.0.0"
