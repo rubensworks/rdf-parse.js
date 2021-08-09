@@ -1,6 +1,6 @@
 # RDF Parse
 
-[![Build Status](https://travis-ci.org/rubensworks/rdf-parse.js.svg?branch=master)](https://travis-ci.org/rubensworks/rdf-parse.js)
+[![Build status](https://github.com/rubensworks/rdf-parse.js/workflows/CI/badge.svg)](https://github.com/rubensworks/rdf-parse.js/actions?query=workflow%3ACI)
 [![Coverage Status](https://coveralls.io/repos/github/rubensworks/rdf-parse.js/badge.svg?branch=master)](https://coveralls.io/github/rubensworks/rdf-parse.js?branch=master)
 [![npm version](https://badge.fury.io/js/rdf-parse.svg)](https://www.npmjs.com/package/rdf-parse)
 
