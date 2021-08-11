@@ -36,7 +36,7 @@
   "devDependencies": {
     "@comunica/runner": "^1.21.1",
     "rdf-data-factory": "^1.0.3",
-    "@types/jest": "^26.0.0",
+    "@types/jest": "^27.0.0",
     "@types/n3": "^1.4.4",
     "arrayify-stream": "^1.0.0",
     "coveralls": "^3.0.0",
