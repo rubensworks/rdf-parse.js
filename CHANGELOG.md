@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.9.0"></a>
+## [v1.9.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.8.1...v1.9.0) - 2021-08-30
+
+### Changed
+* [Migrate to @rdfjs/types](https://github.com/rubensworks/rdf-parse.js/commit/d587837df2b4c7063c1a67fd744523542e41da4c)
+
 <a name="v1.8.1"></a>
 ## [v1.8.1](https://github.com/rubensworks/rdf-parse.js/compare/v1.8.0...v1.8.1) - 2021-06-14
 
