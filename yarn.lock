@@ -398,6 +398,17 @@
     "@rdfjs/types" "*"
     htmlparser2 "^7.0.0"
 
+"@comunica/actor-rdf-parse-jsonld@^1.22.0":
+  version "1.22.0"
+  resolved "https://registry.yarnpkg.com/@comunica/actor-rdf-parse-jsonld/-/actor-rdf-parse-jsonld-1.22.0.tgz#9728a258cebb73bcbec8e7a4fbe26213c43d175a"
+  integrity sha512-cWUQOfJ2k4Ggx3MaHspJAxO5qHWA42FDMoZlpKw00+9bNYJajVpmLqZ8vd6FWo8BhBTKUgCa27QCxlCcbJjjdA==
+  dependencies:
+    "@comunica/context-entries" "^1.22.0"
+    "@rdfjs/types" "*"
+    jsonld-context-parser "^2.1.2"
+    jsonld-streaming-parser "^2.4.0"
+    stream-to-string "^1.2.0"
+
 "@comunica/actor-rdf-parse-jsonld@~1.21.2":
   version "1.21.2"
   resolved "https://registry.yarnpkg.com/@comunica/actor-rdf-parse-jsonld/-/actor-rdf-parse-jsonld-1.21.2.tgz#f2fe479db3a5fba32154e4f1bf1eb2149459cf6a"

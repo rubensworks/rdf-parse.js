@@ -93,7 +93,7 @@
     "@comunica/actor-rdf-parse-html-microdata": "~1.22.0",
     "@comunica/actor-rdf-parse-html-rdfa": "~1.22.0",
     "@comunica/actor-rdf-parse-html-script": "~1.22.0",
-    "@comunica/actor-rdf-parse-jsonld": "~1.21.2",
+    "@comunica/actor-rdf-parse-jsonld": "^1.22.0",
     "@comunica/actor-rdf-parse-n3": "~1.22.0",
     "@comunica/actor-rdf-parse-rdfxml": "~1.22.0",
     "@comunica/actor-rdf-parse-xml-rdfa": "~1.22.0",
