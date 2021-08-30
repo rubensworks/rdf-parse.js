@@ -7,7 +7,7 @@ import {
   IActorTestMediaTypesRdfParse
 } from "@comunica/bus-rdf-parse";
 import {ActionContext, Actor, Mediator} from "@comunica/core";
-import * as RDF from "rdf-js";
+import * as RDF from "@rdfjs/types";
 import {Readable, PassThrough} from "stream";
 
 /**
