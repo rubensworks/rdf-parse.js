@@ -1,6 +1,6 @@
 {
   "name": "rdf-parse",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "Parses RDF from any serialization",
   "lsd:module": true,
   "keywords": [

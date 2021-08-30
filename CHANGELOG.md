@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.9.1"></a>
+## [v1.9.1](https://github.com/rubensworks/rdf-parse.js/compare/v1.8.1...v1.9.1) - 2021-08-30
+
+### Fixed
+* [Fix @comunica/actor-rdf-parse-jsonld not being bumped to latest](https://github.com/rubensworks/rdf-parse.js/commit/54dcf82fcab34b6efe42feb5a7f27e26249cd697)
+
 <a name="v1.9.0"></a>
 ## [v1.9.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.8.1...v1.9.0) - 2021-08-30
 
