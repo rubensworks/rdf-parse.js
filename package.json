@@ -32,12 +32,11 @@
     "test"
   ],
   "devDependencies": {
-    "@comunica/runner": "^2.0.1",
-    "@comunica/actor-http-native": "^2.0.1",
+    "@comunica/runner": "^2.0.3",
     "@types/jest": "^27.0.0",
     "@types/n3": "^1.10.4",
     "arrayify-stream": "^1.0.0",
-    "componentsjs-generator": "^3.0.0",
+    "componentsjs-generator": "^3.0.1",
     "jest": "^27.0.1",
     "jest-rdf": "^1.7.0",
     "manual-git-changelog": "^1.0.1",
