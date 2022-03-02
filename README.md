@@ -5,7 +5,7 @@
 [![npm version](https://badge.fury.io/js/rdf-parse.svg)](https://www.npmjs.com/package/rdf-parse)
 
 This library parses _RDF streams_ based on _content type_ (or file name)
-and outputs [RDFJS](http://rdf.js.org/)-compliant quads as a stream.
+and outputs [RDF/JS](http://rdf.js.org/)-compliant quads as a stream.
 
 This is useful in situations where you have _RDF in some serialization_,
 and you just need the _parsed triples/quads_,
