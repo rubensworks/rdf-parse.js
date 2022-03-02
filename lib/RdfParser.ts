@@ -1,14 +1,7 @@
-import {
-  IActionHandleRdfParse,
-  IActionMediaTypesRdfParse,
-  IActorOutputHandleRdfParse,
-  IActorOutputMediaTypesRdfParse,
-  IActorTestHandleRdfParse,
-  IActorTestMediaTypesRdfParse
-} from "@comunica/bus-rdf-parse";
-import {ActionContext, Actor, Mediator} from "@comunica/core";
+import { ActionContext, Actor } from "@comunica/core";
 import * as RDF from "@rdfjs/types";
 import {Readable, PassThrough} from "stream";
+import { MediatorRdfParseHandle, MediatorRdfParseMediaTypes } from '@comunica/bus-rdf-parse';
 
 /**
  * An RdfParser can parse any RDF serialization, based on a given content type.
@@ -32,12 +25,8 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
     json     : "application/ld+json",
   };
 
-  public readonly mediatorRdfParseMediatypes: Mediator<Actor<
-    IActionMediaTypesRdfParse, IActorTestMediaTypesRdfParse, IActorOutputMediaTypesRdfParse>,
-    IActionMediaTypesRdfParse, IActorTestMediaTypesRdfParse, IActorOutputMediaTypesRdfParse>;
-  public readonly mediatorRdfParseHandle: Mediator<Actor<
-    IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse>,
-    IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse>;
+  public readonly mediatorRdfParseMediatypes: MediatorRdfParseMediaTypes;
+  public readonly mediatorRdfParseHandle: MediatorRdfParseHandle;
 
   constructor(args: IRdfParserArgs) {
     this.mediatorRdfParseMediatypes = args.mediatorRdfParseMediatypes;
@@ -58,7 +47,7 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
    */
   public async getContentTypesPrioritized(): Promise<{[contentType: string]: number}> {
     return (await this.mediatorRdfParseMediatypes.mediate(
-      { context: ActionContext({}), mediaTypes: true })).mediaTypes;
+      { context: new ActionContext(), mediaTypes: true })).mediaTypes;
   }
 
   /**
@@ -84,13 +73,14 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
     const readable = new PassThrough({ objectMode: true });
 
     // Delegate parsing to the mediator
+    const context = new ActionContext(options);
     this.mediatorRdfParseHandle.mediate({
-      context: ActionContext(options),
-      handle: { input: stream, baseIRI: <string> options.baseIRI },
+      context,
+      handle: { data: stream, metadata: { baseIRI: <string> options.baseIRI }, context },
       handleMediaType: contentType,
     })
       .then((output) => {
-        const quads = <Readable> output.handle.quads;
+        const quads = output.handle.data;
         quads.on('error', (e) => readable.emit('error', e));
         quads.pipe(readable);
       })
@@ -118,12 +108,9 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
 }
 
 export interface IRdfParserArgs {
-  mediatorRdfParseMediatypes: Mediator<Actor<
-    IActionMediaTypesRdfParse, IActorTestMediaTypesRdfParse, IActorOutputMediaTypesRdfParse>,
-    IActionMediaTypesRdfParse, IActorTestMediaTypesRdfParse, IActorOutputMediaTypesRdfParse>;
-  mediatorRdfParseHandle: Mediator<Actor<
-    IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse>,
-    IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse>;
+  mediatorRdfParseMediatypes: MediatorRdfParseMediaTypes;
+  mediatorRdfParseHandle: MediatorRdfParseHandle;
+  actors: Actor<any, any, any>[];
 }
 
 export type ParseOptions = {

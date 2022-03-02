@@ -12,7 +12,7 @@ describe('parser', () => {
   });
 
   it('should get all content types', async () => {
-    expect(await parser.getContentTypes()).toEqual([
+    expect((await parser.getContentTypes()).sort()).toEqual([
       'application/ld+json',
       'application/json',
       'text/html',
@@ -26,7 +26,7 @@ describe('parser', () => {
       'application/n-triples',
       'text/turtle',
       'text/n3',
-    ]);
+    ].sort());
   });
 
   it('should get all prioritized content types', async () => {

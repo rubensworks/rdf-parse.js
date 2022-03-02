@@ -3,23 +3,24 @@
   "compilerOptions": {
     "module": "commonjs",
     "lib": [
-      "es6",
-      "esnext.asynciterable",
+      "es2020",
+      "es2021",
       "dom"
     ],
-    "target": "es6",
-    "noImplicitAny": true,
+    "target": "es2020",
     "removeComments": false,
     "preserveConstEnums": true,
     "sourceMap": true,
     "inlineSources": true,
     "declaration": true,
-    "importHelpers": false,
     "resolveJsonModule": true,
-    "strict": true
+    "downlevelIteration": true,
+
+    "strict": true,
+    "strictFunctionTypes": false,
+    "strictPropertyInitialization": false
   },
   "include": [
-    "index.ts",
     "lib/**/*",
     "bin/**/*",
     "perf/**/*",
