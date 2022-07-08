@@ -2,7 +2,7 @@ import "jest-rdf";
 const stringToStream = require('streamify-string');
 const arrayifyStream = require('arrayify-stream');
 const quad = require('rdf-quad');
-import {RdfParser} from "../lib/RdfParser";
+import { RdfParser } from "../lib/RdfParser";
 
 import parser from "..";
 
@@ -51,7 +51,7 @@ describe('parser', () => {
     const stream = stringToStream(`
 <http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
 `);
-    return expect(() => parser.parse(stream, <any> {}))
+    return expect(() => parser.parse(stream, <any>{}))
       .toThrow(new Error('Missing \'contentType\' or \'path\' option while parsing.'));
   });
 
@@ -110,6 +110,24 @@ describe('parser', () => {
       .rejects.toThrow(new Error('Expected entity but got eof on line 3.'));
   });
 
+  it('should parse application/ld+json and emit context', async (): Promise<void> => {
+    const stream = stringToStream(`
+{
+  "@context": "http://schema.org/",
+  "@type": "Person",
+  "@id": "",
+  "name": "Jane Doe",
+  "url": ""
+}
+`);
+    const contexts: string[] = [];
+    const result = await arrayifyStream(parser.parse(stream, { contentType: 'application/ld+json' })
+      .on('context', (context => contexts.push(context))));
+
+    expect(result).toBeRdfIsomorphic([]);
+    expect(contexts).toContain('http://schema.org/');
+  });
+
   it('should parse application/ld+json without baseIRI', () => {
     const stream = stringToStream(`
 {
@@ -123,6 +141,7 @@ describe('parser', () => {
     return expect(arrayifyStream(parser.parse(stream, { contentType: 'application/ld+json' }))).resolves
       .toBeRdfIsomorphic([]);
   });
+
 
   it('should parse application/ld+json with baseIRI', () => {
     const stream = stringToStream(`
@@ -188,6 +207,58 @@ describe('parser', () => {
       .parse(stream, { contentType: 'text/html', baseIRI: 'http://ex.org/' })))
       .resolves.toBeRdfIsomorphic([
         quad('http://ex.org/', 'http://schema.org/name', '"Title"'),
+      ]);
+  });
+
+  it('should parse and emit prefixes in text/turtle', async (): Promise<void> => {
+    const turtle = `
+    @base <http://example.org/> .
+    @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+    @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+    @prefix rel: <http://www.perceive.net/schemas/relationship/> .
+
+    <#green-goblin>
+        rel:enemyOf <#spiderman> ;
+        a foaf:Person ;    # in the context of the Marvel universe
+        foaf:name "Green Goblin" .
+
+    <#spiderman>
+        rel:enemyOf <#green-goblin> ;
+        a foaf:Person ;
+        foaf:name "Spiderman", "Человек-паук"@ru .`
+    const stream = stringToStream(turtle);
+    const prefixes: Record<string, string> = {};
+    const result = await arrayifyStream(parser.parse(stream, { path: 'myfile.ttl' })
+      .on('prefix', (prefix, iri) => prefixes[prefix] = iri.value));
+    expect(result).toBeRdfIsomorphic([
+      quad('http://example.org/#green-goblin', 'http://www.perceive.net/schemas/relationship/enemyOf', 'http://example.org/#spiderman'),
+      quad('http://example.org/#green-goblin', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://xmlns.com/foaf/0.1/Person'),
+      quad('http://example.org/#green-goblin', 'http://xmlns.com/foaf/0.1/name', '\"Green Goblin\"'),
+      quad('http://example.org/#spiderman', 'http://www.perceive.net/schemas/relationship/enemyOf', 'http://example.org/#green-goblin'),
+      quad('http://example.org/#spiderman', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://xmlns.com/foaf/0.1/Person'),
+      quad('http://example.org/#spiderman', 'http://xmlns.com/foaf/0.1/name', '\"Spiderman\"'),
+      quad('http://example.org/#spiderman', 'http://xmlns.com/foaf/0.1/name', '\"Человек-паук\"@ru'),
+    ]);
+
+    expect(prefixes).toMatchObject({
+      rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+      rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
+      foaf: 'http://xmlns.com/foaf/0.1/',
+      rel: 'http://www.perceive.net/schemas/relationship/'
+    });
+
+
+  });
+
+  it('should parse text/turtle with baseIRI', () => {
+    const stream = stringToStream(`
+        <s> <p> <o1>, <o2>.
+        `);
+    return expect(arrayifyStream(parser.parse(stream, { contentType: 'text/turtle', baseIRI: 'http://ex.org/' })))
+      .resolves.toBeRdfIsomorphic([
+        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
       ]);
   });
 });
