@@ -116,6 +116,26 @@ console.log(await rdfParser.getContentTypes());
 console.log(await rdfParser.getContentTypesPrioritized());
 ```
 
+### Obtaining prefixes
+
+Using the `'prefix'` event, you can obtain the prefixes that were available when parsing from documents in formats such as Turtle and TriG.
+
+```javascript
+rdfParser.parse(textStream, { contentType: 'text/turtle' })
+    .on('prefix', (prefix, iri) => console.log(prefix + ':' + iri))
+```
+
+### Obtaining contexts
+
+Using the `'context'` event, you can obtain all contexts (`@context`) when parsing JSON-LD documents.
+
+Multiple contexts can be found, and the context values that are emitted correspond exactly to the context value as included in the JSON-LD document.
+
+```javascript
+rdfParser.parse(textStream, { contentType: 'application/ld+json' })
+    .on('context', (context) => console.log(context))
+```
+
 ## License
 This software is written by [Ruben Taelman](http://rubensworks.net/).
 
