@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v2.1.0"></a>
+## [v2.1.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.9.1...v2.1.0) - 2022-07-08
+
+### Added
+* [Emit prefix and context events when parsing, Closes #22](https://github.com/rubensworks/rdf-parse.js/commit/e971663f1fee53237fd279541dfefb2a2b844a7a)
+
 <a name="v2.0.0"></a>
 ## [v2.0.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.9.1...v2.0.0) - 2022-03-02
 
