@@ -82,6 +82,8 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
       .then((output) => {
         const quads = output.handle.data;
         quads.on('error', (e) => readable.emit('error', e));
+        quads.on('prefix', (prefix, iri) => readable.emit('prefix', prefix, iri));
+        quads.on('context', (ctx) => readable.emit('context', ctx));
         quads.pipe(readable);
       })
       .catch((e) => readable.emit('error', e));
