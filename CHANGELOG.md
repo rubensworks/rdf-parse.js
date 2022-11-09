@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v2.1.1"></a>
+## [v2.1.1](https://github.com/rubensworks/rdf-parse.js/compare/v2.1.0...v2.1.1) - 2022-11-09
+
+### Fixed
+* [Include source map files in packed files](https://github.com/rubensworks/rdf-parse.js/commit/21d1999143164edb7644a33c0509cee4ae742b00)
+
 <a name="v2.1.0"></a>
 ## [v2.1.0](https://github.com/rubensworks/rdf-parse.js/compare/v1.9.1...v2.1.0) - 2022-07-08
 
