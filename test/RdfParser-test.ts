@@ -26,6 +26,8 @@ describe('parser', () => {
       'application/n-triples',
       'text/turtle',
       'text/n3',
+      'text/shaclc',
+      'text/shaclc-ext',
     ].sort());
   });
 
@@ -42,6 +44,8 @@ describe('parser', () => {
       'image/svg+xml': 0.3,
       'text/html': 0.2,
       'text/n3': 0.35,
+      "text/shaclc": 0.1,
+      "text/shaclc-ext": 0.05,
       'text/turtle': 0.6,
       'text/xml': 0.3,
     });
@@ -259,6 +263,20 @@ describe('parser', () => {
       .resolves.toBeRdfIsomorphic([
         quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
         quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
+      ]);
+  });
+
+  it('should parse text/shaclc with baseIRI', () => {
+    const stream = stringToStream(`
+          BASE <http://localhost:3002/ContactsShape>
+          PREFIX cont: <http://localhost:3002/ContactsShape#>
+
+          shape cont:ContactsShape {}
+        `);
+    return expect(arrayifyStream(parser.parse(stream, { contentType: 'text/shaclc' })))
+      .resolves.toBeRdfIsomorphic([
+        quad("http://localhost:3002/ContactsShape#ContactsShape", "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://www.w3.org/ns/shacl#NodeShape"),
+        quad("http://localhost:3002/ContactsShape", "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://www.w3.org/2002/07/owl#Ontology"),
       ]);
   });
 });
