@@ -271,14 +271,12 @@ describe('parser', () => {
           BASE <http://localhost:3002/ContactsShape>
           PREFIX cont: <http://localhost:3002/ContactsShape#>
 
-          shape cont:ContactsShape {
-            foaf:knows foaf:Person .
-          }
+          shape cont:ContactsShape {}
         `);
     return expect(arrayifyStream(parser.parse(stream, { contentType: 'text/shaclc' })))
       .resolves.toBeRdfIsomorphic([
-        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
-        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
+        quad("http://localhost:3002/ContactsShape#ContactsShape", "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://www.w3.org/ns/shacl#NodeShape"),
+        quad("http://localhost:3002/ContactsShape", "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://www.w3.org/2002/07/owl#Ontology"),
       ]);
   });
 });
