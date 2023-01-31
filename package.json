@@ -97,6 +97,7 @@
     "@comunica/actor-rdf-parse-jsonld": "^2.0.1",
     "@comunica/actor-rdf-parse-n3": "^2.0.1",
     "@comunica/actor-rdf-parse-rdfxml": "^2.0.1",
+    "@comunica/actor-rdf-parse-shaclc": "^2.6.0",
     "@comunica/actor-rdf-parse-xml-rdfa": "^2.0.1",
     "@comunica/bus-http": "^2.0.1",
     "@comunica/bus-init": "^2.0.1",

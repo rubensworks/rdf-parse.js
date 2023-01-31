@@ -26,6 +26,8 @@ describe('parser', () => {
       'application/n-triples',
       'text/turtle',
       'text/n3',
+      'text/shaclc',
+      'text/shaclc-ext',
     ].sort());
   });
 
@@ -42,6 +44,8 @@ describe('parser', () => {
       'image/svg+xml': 0.3,
       'text/html': 0.2,
       'text/n3': 0.35,
+      "text/shaclc": 0.1,
+      "text/shaclc-ext": 0.05,
       'text/turtle': 0.6,
       'text/xml': 0.3,
     });
