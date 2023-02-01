@@ -9,7 +9,7 @@ import { MediatorRdfParseHandle, MediatorRdfParseMediaTypes } from '@comunica/bu
 export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
 
   // tslint:disable:object-literal-sort-keys
-  private static readonly CONTENT_MAPPINGS: { [id: string]: string } = {
+  public static readonly CONTENT_MAPPINGS: { [id: string]: string } = {
     ttl      : "text/turtle",
     turtle   : "text/turtle",
     nt       : "application/n-triples",
@@ -101,7 +101,7 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
    * @param {string} path A path.
    * @return {string} A content type or the empty string.
    */
-  protected getContentTypeFromExtension(path: string): string {
+  public getContentTypeFromExtension(path: string): string {
     const dotIndex = path.lastIndexOf('.');
     if (dotIndex >= 0) {
       const ext = path.substr(dotIndex);
