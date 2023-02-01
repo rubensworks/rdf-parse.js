@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v2.3.0"></a>
+## [v2.3.0](https://github.com/rubensworks/rdf-parse.js/compare/v2.2.0...v2.3.0) - 2023-02-01
+
+### Added
+* [Expose `CONTENT_MAPPINGS` and `getContentTypeFromExtension` (#50)](https://github.com/rubensworks/rdf-parse.js/commit/608c540e795ff8884e582ff8371d49d936f5c3f9)
+
 <a name="v2.2.0"></a>
 ## [v2.2.0](https://github.com/rubensworks/rdf-parse.js/compare/v2.1.1...v2.2.0) - 2023-01-31
 
