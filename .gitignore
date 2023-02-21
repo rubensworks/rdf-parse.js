@@ -21,3 +21,4 @@ coverage
 documentation
 engine-default.js
 components
+lib/mediaMappings.ts

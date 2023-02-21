@@ -2,28 +2,13 @@ import { ActionContext, Actor } from "@comunica/core";
 import * as RDF from "@rdfjs/types";
 import {Readable, PassThrough} from "stream";
 import { MediatorRdfParseHandle, MediatorRdfParseMediaTypes } from '@comunica/bus-rdf-parse';
+import mediaMappings from "./mediaMappings";
 
 /**
  * An RdfParser can parse any RDF serialization, based on a given content type.
  */
 export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
-
-  // tslint:disable:object-literal-sort-keys
-  private static readonly CONTENT_MAPPINGS: { [id: string]: string } = {
-    ttl      : "text/turtle",
-    turtle   : "text/turtle",
-    nt       : "application/n-triples",
-    ntriples : "application/n-triples",
-    nq       : "application/n-quads",
-    nquads   : "application/n-quads",
-    rdf      : "application/rdf+xml",
-    rdfxml   : "application/rdf+xml",
-    owl      : "application/rdf+xml",
-    n3       : "text/n3",
-    trig     : "application/trig",
-    jsonld   : "application/ld+json",
-    json     : "application/ld+json",
-  };
+  private static readonly CONTENT_MAPPINGS: Record<string, string> = mediaMappings;
 
   public readonly mediatorRdfParseMediatypes: MediatorRdfParseMediaTypes;
   public readonly mediatorRdfParseHandle: MediatorRdfParseHandle;
