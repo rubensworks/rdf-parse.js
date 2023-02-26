@@ -1,6 +1,6 @@
 import { ActionContext, Actor } from "@comunica/core";
 import * as RDF from "@rdfjs/types";
-import {Readable, PassThrough} from "stream";
+import { Readable, PassThrough } from "readable-stream";
 import { MediatorRdfParseHandle, MediatorRdfParseMediaTypes } from '@comunica/bus-rdf-parse';
 
 /**
@@ -92,7 +92,7 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
       })
       .catch((e) => readable.emit('error', e));
 
-    return readable;
+    return readable as unknown as Readable & RDF.Stream;
   }
 
   /**
