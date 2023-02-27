@@ -110,6 +110,7 @@
     "@comunica/mediator-number": "^2.0.1",
     "@comunica/mediator-race": "^2.0.1",
     "@rdfjs/types": "*",
+    "readable-stream": "^4.3.0",
     "stream-to-string": "^1.2.0"
   }
 }
