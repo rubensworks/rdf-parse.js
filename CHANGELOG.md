@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v2.3.1"></a>
+## [v2.3.1](https://github.com/rubensworks/rdf-parse.js/compare/v2.3.0...v2.3.1) - 2023-02-27
+
+### Fixed
+* [Use readable-stream instead of Node streams](https://github.com/rubensworks/rdf-parse.js/commit/74bd7afc4acb2e3cb9ccbc3e644147f4da02a562)
+
 <a name="v2.3.0"></a>
 ## [v2.3.0](https://github.com/rubensworks/rdf-parse.js/compare/v2.2.0...v2.3.0) - 2023-02-01
 
