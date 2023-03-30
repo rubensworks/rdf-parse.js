@@ -6,5 +6,8 @@ const mediaMappings: Record<string, string> = (<any> rdfDereference.mediatorDere
 
 fs.writeFileSync(
   path.join(__dirname, '..', 'lib', 'mediaMappings.ts'),
-  `export default ${JSON.stringify(mediaMappings, null, 2)};\n`
+  // This json override is here for backwards compatibility and may
+  // be removed in a major version bump
+  // @see https://github.com/rubensworks/rdf-parse.js/pull/51#issuecomment-1439977639
+  `export default ${JSON.stringify({ ...mediaMappings, json: "application/ld+json" }, null, 2)};\n`
 );
