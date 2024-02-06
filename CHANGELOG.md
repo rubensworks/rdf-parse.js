@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v2.3.3"></a>
+## [v2.3.3](https://github.com/rubensworks/rdf-parse.js/compare/v2.3.2...v2.3.3) - 2024-02-06
+
+### Fixed
+* [Fix wrong type in export in index, Closes #58](https://github.com/rubensworks/rdf-parse.js/commit/82e1d135131069981c6431558e292c46b3b11371)
+
 <a name="v2.3.2"></a>
 ## [v2.3.2](https://github.com/rubensworks/rdf-parse.js/compare/v2.3.1...v2.3.2) - 2023-03-30
 
