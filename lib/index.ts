@@ -1,4 +1,6 @@
-import { RdfParser } from './RdfParser';
+import {RdfParser} from './RdfParser';
+
 export * from "./RdfParser";
 // tslint:disable:no-var-requires
-export default <RdfParser> require('../engine-default');
+const rdfParser = <RdfParser>require('../engine-default');
+export {rdfParser};
