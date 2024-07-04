@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v3.0.0"></a>
+## [v3.0.0](https://github.com/rubensworks/rdf-parse.js/compare/v2.3.3...v3.0.0) - 2024-07-04
+
+### BREAKING CHANGES
+* [Replace default exports with named exports for better ESM support (#61)](https://github.com/rubensworks/rdf-parse.js/commit/80eabdce290d03d73819a4625ed169244c25ff03)
+  * Update your imports to `import { rdfParser } from "rdf-parse";`
+
 <a name="v2.3.3"></a>
 ## [v2.3.3](https://github.com/rubensworks/rdf-parse.js/compare/v2.3.2...v2.3.3) - 2024-02-06
 
