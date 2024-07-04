@@ -57,13 +57,13 @@ This package also works out-of-the-box in browsers via tools such as [webpack](h
 ## Require
 
 ```typescript
-import rdfParser from "rdf-parse";
+import { rdfParser } from "rdf-parse";
 ```
 
 _or_
 
 ```javascript
-const rdfParser = require("rdf-parse").default;
+const { rdfParser } = require("rdf-parse");
 ```
 
 ## Usage
