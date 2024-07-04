@@ -2,7 +2,7 @@ import { ActionContext, Actor } from "@comunica/core";
 import * as RDF from "@rdfjs/types";
 import { Readable, PassThrough } from "readable-stream";
 import { MediatorRdfParseHandle, MediatorRdfParseMediaTypes } from '@comunica/bus-rdf-parse';
-import mediaMappings from "./mediaMappings";
+import {mediaMappings} from "./mediaMappings";
 
 /**
  * An RdfParser can parse any RDF serialization, based on a given content type.
