@@ -14,6 +14,10 @@
   "typings": "lib/index",
   "repository": "git@github.com:rubensworks/rdf-parse.js.git",
   "author": "Ruben Taelman <rubensworks@gmail.com>",
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/rubensworks/"
+  },
   "bugs": {
     "url": "https://github.com/rubensworks/rdf-parse.js/issues"
   },
