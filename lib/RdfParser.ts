@@ -3,6 +3,8 @@ import * as RDF from "@rdfjs/types";
 import { Readable, PassThrough } from "readable-stream";
 import { MediatorRdfParseHandle, MediatorRdfParseMediaTypes } from '@comunica/bus-rdf-parse';
 import {mediaMappings} from "./mediaMappings";
+import { DataFactory } from 'rdf-data-factory';
+import { KeysInitQuery } from '@comunica/context-entries';
 
 /**
  * An RdfParser can parse any RDF serialization, based on a given content type.
@@ -58,7 +60,8 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
     const readable = new PassThrough({ objectMode: true });
 
     // Delegate parsing to the mediator
-    const context = new ActionContext(options);
+    const context = new ActionContext(options)
+      .setDefault(KeysInitQuery.dataFactory, options.dataFactory || new DataFactory());
     this.mediatorRdfParseHandle.mediate({
       context,
       handle: { data: stream, metadata: { baseIRI: <string> options.baseIRI }, context },
@@ -109,6 +112,10 @@ export type ParseOptions = {
    * An optional base IRI of stream's document.
    */
   baseIRI?: string;
+  /**
+   * An optional data factory to pass to parsers.
+   */
+  dataFactory?: RDF.DataFactory;
 } | {
   /**
    * The file name or URL that is being parsed.
@@ -118,4 +125,8 @@ export type ParseOptions = {
    * An optional base IRI of stream's document.
    */
   baseIRI?: string;
+  /**
+   * An optional data factory to pass to parsers.
+   */
+  dataFactory?: RDF.DataFactory;
 };

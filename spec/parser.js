@@ -1,4 +1,4 @@
-const rdfParser = require("..").default;
+const rdfParser = require("..").rdfParser;
 const { ErrorSkipped } = require('rdf-test-suite');
 
 module.exports = {

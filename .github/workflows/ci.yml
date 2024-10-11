@@ -12,7 +12,7 @@ jobs:
           key: ${{ runner.os }}-lint-modules-${{ hashFiles('**/yarn.lock') }}
       - uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 18.x
       - run: yarn install
       - run: yarn run lint
 
@@ -20,10 +20,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
         node-version:
-          - 14.x
-          - 16.x
           - 18.x
           - 20.x
           - 22.x
@@ -66,10 +67,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
         node-version:
-          - 14.x
-          - 16.x
+          - 18.x
+          - 20.x
+          - 22.x
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -88,3 +93,17 @@ jobs:
       - name: Build project
         run: yarn run build
       - run: yarn run spec
+
+  webpack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-webpack-modules-${{ hashFiles('**/yarn.lock') }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - run: yarn install
+      - run: yarn run browser

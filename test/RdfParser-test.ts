@@ -34,7 +34,7 @@ describe('parser', () => {
 
   it('should get all prioritized content types', async () => {
     expect(await rdfParser.getContentTypesPrioritized()).toEqual({
-      'application/json': 0.45,
+      'application/json': 0.135,
       'application/ld+json': 0.9,
       'application/n-quads': 1,
       'application/n-triples': 0.8,
@@ -188,10 +188,10 @@ describe('parser', () => {
 
   it('should fail to parse invalid application/ld+json', () => {
     const stream = stringToStream(`
-<s> <p> <o1>,
+...,
 `);
     return expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'application/ld+json'})))
-      .rejects.toThrow(new Error('Unexpected "s" at position 2 in state STOP'));
+      .rejects.toThrow(new Error('Unexpected "." at position 1 in state STOP'));
   });
 
   it('should fail to parse an unknown content type', () => {
