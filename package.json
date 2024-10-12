@@ -91,7 +91,7 @@
     "version": "manual-git-changelog onversion",
     "spec": "npm run spec-jsonld-html",
     "spec-earl": "npm run spec-earl-jsonld-html",
-    "spec-jsonld-html": "rdf-test-suite spec/parser.js https://w3c.github.io/json-ld-api/tests/html-manifest.jsonld -c .rdf-test-suite-cache/ || true",
+    "spec-jsonld-html": "rdf-test-suite spec/parser.js https://w3c.github.io/json-ld-api/tests/html-manifest.jsonld -c .rdf-test-suite-cache/",
     "spec-earl-jsonld-html": "rdf-test-suite spec/parser.js https://w3c.github.io/json-ld-api/tests/html-manifest.jsonld -c .rdf-test-suite-cache/ -o earl -p spec/earl-meta.json > spec/earl-jsonld-html.ttl",
     "spec-clean": "rm -r .rdf-test-suite-cache/"
   },
