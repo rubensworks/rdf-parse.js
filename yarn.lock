@@ -909,6 +909,17 @@
     jsonld-context-parser "^2.2.2"
     sparqlalgebrajs "^4.0.5"
 
+"@comunica/context-entries@^2.8.1":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@comunica/context-entries/-/context-entries-2.10.0.tgz#6920bad7b55ffcf99ed00472fadab659147bd3ea"
+  integrity sha512-lmCYCcXxW8C6ecFH2whZCt31NT1ejb0P/sbytK7f4ctyA06Q8iYFEcYE4eWOXMdpfkwkcnz31x9XL77OGeSC2Q==
+  dependencies:
+    "@comunica/core" "^2.10.0"
+    "@comunica/types" "^2.10.0"
+    "@rdfjs/types" "*"
+    jsonld-context-parser "^2.2.2"
+    sparqlalgebrajs "^4.2.0"
+
 "@comunica/context-entries@^4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@comunica/context-entries/-/context-entries-4.0.1.tgz#795d33f32c76ecf8d702dc981e17807207948b43"
@@ -927,6 +938,14 @@
   dependencies:
     "@comunica/types" "^2.0.1"
     immutable "^3.8.2"
+
+"@comunica/core@^2.10.0":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@comunica/core/-/core-2.10.0.tgz#198c176443d03d6b374ee2b11fdd862b4b7c2b63"
+  integrity sha512-onsGs2iKHUPRxxMOdx42vdxslk8q9FQZdRjQtHJ6SGiCpJwIL9ciBgPIOl2RL2YfzXHemr/0umeNOppRDcWhJA==
+  dependencies:
+    "@comunica/types" "^2.10.0"
+    immutable "^4.1.0"
 
 "@comunica/core@^2.6.8":
   version "2.6.8"
@@ -1034,6 +1053,16 @@
     "@types/yargs" "^17.0.2"
     asynciterator "^3.3.0"
     sparqlalgebrajs "^4.0.0"
+
+"@comunica/types@^2.10.0":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@comunica/types/-/types-2.10.0.tgz#fbb4968734e4297eb116a7fa836ca0362d0cba89"
+  integrity sha512-1UjPGbZcYrapBjMGUZedrIGcn9rOLpEOlJo1ZkWddFUGTwndVg9d4BZnQw+UnQzXMcLJcdKt94Zns8iEmBqARw==
+  dependencies:
+    "@rdfjs/types" "*"
+    "@types/yargs" "^17.0.24"
+    asynciterator "^3.8.1"
+    sparqlalgebrajs "^4.2.0"
 
 "@comunica/types@^2.6.8":
   version "2.6.8"
@@ -1773,7 +1802,7 @@ asynciterator@^3.8.0:
   resolved "https://registry.yarnpkg.com/asynciterator/-/asynciterator-3.8.0.tgz#d9246a3d39ce2a9e4b020834d7f352adf35b49d8"
   integrity sha512-bD34LqKHJnkB77MHjL3hOAUOcy9dbB+3lHvL+EiJpD3k2Nyq3i1dCk5adMisB2rwlrHVu/+XRhOdPZL9hzpsfw==
 
-asynciterator@^3.9.0:
+asynciterator@^3.8.1, asynciterator@^3.9.0:
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/asynciterator/-/asynciterator-3.9.0.tgz#6e9a69623c4cec07e4cd85130416d52899f4e93f"
   integrity sha512-bwLLTAnoE6Ap6XdjK/j8vDk2Vi9p3ojk0PFwM0SwktAG1k8pfRJF9ng+mmkaRFKdZCQQlOxcWnvOmX2NQ1HV0g==
@@ -4034,10 +4063,10 @@ rdf-data-factory@^1.1.2:
   dependencies:
     "@rdfjs/types" "*"
 
-rdf-dereference@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/rdf-dereference/-/rdf-dereference-2.1.0.tgz#169c7b8d12dc5faf8912b3b141b3e6bd0c095930"
-  integrity sha512-1ZUgruR9mkFC+sbn8qWTDVEL+NgU6MUS4Fp4c0ykZFPizopwvtBqr2Z8IJr579HGFY7HBZIfgljNXMqFls+PHQ==
+rdf-dereference@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/rdf-dereference/-/rdf-dereference-3.0.0.tgz#348d69a90501e98a4b3a7e8a756b61793997518c"
+  integrity sha512-LxB1dP357S/NuivEfNa2YMbnY+k+hPNrvAx/p6CUaHhKv5wuqJHtfmbm8ahqbo/98CizjoFew5xT4WlqedXWYA==
   dependencies:
     "@comunica/actor-dereference-fallback" "^2.0.2"
     "@comunica/actor-dereference-file" "^2.0.2"
@@ -4061,12 +4090,14 @@ rdf-dereference@^2.1.0:
     "@comunica/bus-rdf-parse" "^2.0.1"
     "@comunica/bus-rdf-parse-html" "^2.0.1"
     "@comunica/config-query-sparql" "^2.0.1"
+    "@comunica/context-entries" "^2.8.1"
     "@comunica/core" "^2.0.1"
     "@comunica/mediator-combine-pipeline" "^2.0.1"
     "@comunica/mediator-combine-union" "^2.0.1"
     "@comunica/mediator-number" "^2.0.1"
     "@comunica/mediator-race" "^2.0.1"
     "@rdfjs/types" "*"
+    process "^0.11.10"
     rdf-string "^1.6.0"
     stream-to-string "^1.2.0"
 
@@ -4574,7 +4605,7 @@ sparqlalgebrajs@^4.0.5:
     rdf-string "^1.6.0"
     sparqljs "^3.6.1"
 
-sparqlalgebrajs@^4.3.8:
+sparqlalgebrajs@^4.2.0, sparqlalgebrajs@^4.3.8:
   version "4.3.8"
   resolved "https://registry.yarnpkg.com/sparqlalgebrajs/-/sparqlalgebrajs-4.3.8.tgz#2b339120fc3e4d7cc952c113ee6f1ab8e0d3b7a5"
   integrity sha512-Xo1/5icRtVk2N38BrY9NXN8N/ZPjULlns7sDHv0nlcGOsOediBLWVy8LmV+Q90RHvb3atZZbrFy3VqrM4iXciA==
