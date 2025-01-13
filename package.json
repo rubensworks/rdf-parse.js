@@ -48,7 +48,7 @@
     "pre-commit": "^1.2.2",
     "rdf-dereference": "^2.1.0",
     "rdf-quad": "^2.0.0",
-    "rdf-test-suite": "^1.25.0",
+    "rdf-test-suite": "^2.0.0",
     "streamify-string": "^1.0.1",
     "ts-jest": "^29.0.0",
     "ts-node": "^10.9.1",
