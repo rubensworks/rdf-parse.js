@@ -118,7 +118,7 @@
     "@comunica/mediator-number": "^4.0.1",
     "@comunica/mediator-race": "^4.0.1",
     "@rdfjs/types": "*",
-    "rdf-data-factory": "^1.1.2",
+    "rdf-data-factory": "^2.0.0",
     "readable-stream": "^4.5.2",
     "stream-to-string": "^1.2.1"
   }
