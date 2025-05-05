@@ -267,17 +267,28 @@ describe('parser', () => {
       ]);
   });
 
-  it('should parse text/shaclc with baseIRI', () => {
+  it('should parse text/shaclc with baseIRI', async () => {
     const stream = stringToStream(`
           BASE <http://localhost:3002/ContactsShape>
           PREFIX cont: <http://localhost:3002/ContactsShape#>
 
           shape cont:ContactsShape {}
         `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'text/shaclc'})))
+
+    const prefixes: Record<string, string> = {};
+    const result = arrayifyStream(rdfParser.parse(stream, {contentType: 'text/shaclc'})
+      .on('prefix', (prefix: string, iri: string) => prefixes[prefix] = iri));
+
+    await expect(result)
       .resolves.toBeRdfIsomorphic([
         quad("http://localhost:3002/ContactsShape#ContactsShape", "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://www.w3.org/ns/shacl#NodeShape"),
         quad("http://localhost:3002/ContactsShape", "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://www.w3.org/2002/07/owl#Ontology"),
       ]);
+
+    expect(prefixes).toMatchObject({
+      cont: 'http://localhost:3002/ContactsShape#',
+      rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+      sh: 'http://www.w3.org/ns/shacl#',
+    });
   });
 });
