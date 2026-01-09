@@ -267,6 +267,92 @@ describe('parser', () => {
       ]);
   });
 
+  it('should parse text/turtle with in-band version 1.1', () => {
+    const stream = stringToStream(`
+        VERSION "1.1"
+        <s> <p> <o1>, <o2>.
+        `);
+    return expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
+            .resolves.toBeRdfIsomorphic([
+              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
+            ]);
+  });
+
+  it('should parse text/turtle with out-of-band version 1.1', () => {
+    const stream = stringToStream(`
+        <s> <p> <o1>, <o2>.
+        `);
+    return expect(arrayifyStream(rdfParser.parse(stream, {version: '1.1', contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
+            .resolves.toBeRdfIsomorphic([
+              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
+            ]);
+  });
+
+  it('should parse text/turtle with in-band version 1.2', () => {
+    const stream = stringToStream(`
+        VERSION "1.2"
+        <s> <p> <o1>, <<( <a> <b> <c> )>>.
+        `);
+    return expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
+            .resolves.toBeRdfIsomorphic([
+              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+              quad('http://ex.org/s', 'http://ex.org/p', '<<http://ex.org/a http://ex.org/b http://ex.org/c>>'),
+            ]);
+  });
+
+  it('should parse text/turtle with out-of-band version 1.2', () => {
+    const stream = stringToStream(`
+        <s> <p> <o1>, <o2>.
+        `);
+    return expect(arrayifyStream(rdfParser.parse(stream, {version: '1.2', contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
+            .resolves.toBeRdfIsomorphic([
+              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
+            ]);
+  });
+
+  it('should fail to parse text/turtle with an unknown in-band version', async() => {
+    const stream = stringToStream(`
+VERSION "unknown"
+<s> <p> <o1>, <o2>.
+`);
+    await expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
+        .rejects.toThrow(new Error('Detected unsupported version: "unknown" on line 2.'));
+  });
+
+  it('should fail to parse text/turtle with an unknown out-of-band version', async() => {
+    const stream = stringToStream(`
+<s> <p> <o1>, <o2>.
+`);
+    await expect(arrayifyStream(rdfParser.parse(stream, {version: 'unknown', contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
+            .rejects.toThrow(new Error('Detected unsupported version as media type parameter: "unknown" on line 2.'));
+  });
+
+  it('should parse text/turtle with in-band version unknown and parseUnsupportedVersions', () => {
+    const stream = stringToStream(`
+        VERSION "unknown"
+        <s> <p> <o1>, <<( <a> <b> <c> )>>.
+        `);
+    return expect(arrayifyStream(rdfParser.parse(stream, {parseUnsupportedVersions: true, contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
+            .resolves.toBeRdfIsomorphic([
+              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+              quad('http://ex.org/s', 'http://ex.org/p', '<<http://ex.org/a http://ex.org/b http://ex.org/c>>'),
+            ]);
+  });
+
+  it('should parse text/turtle with out-of-band version unknown and parseUnsupportedVersions', () => {
+    const stream = stringToStream(`
+        <s> <p> <o1>, <o2>.
+        `);
+    return expect(arrayifyStream(rdfParser.parse(stream, {version: 'unknown', parseUnsupportedVersions: true, contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
+            .resolves.toBeRdfIsomorphic([
+              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
+            ]);
+  });
+
   it('should parse text/shaclc with baseIRI', async () => {
     const stream = stringToStream(`
           BASE <http://localhost:3002/ContactsShape>
@@ -291,4 +377,5 @@ describe('parser', () => {
       sh: 'http://www.w3.org/ns/shacl#',
     });
   });
+
 });

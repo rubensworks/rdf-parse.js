@@ -61,10 +61,11 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
 
     // Delegate parsing to the mediator
     const context = new ActionContext(options)
-      .setDefault(KeysInitQuery.dataFactory, options.dataFactory || new DataFactory());
+      .setDefault(KeysInitQuery.dataFactory, options.dataFactory || new DataFactory())
+      .setDefault(KeysInitQuery.parseUnsupportedVersions, options.parseUnsupportedVersions);
     this.mediatorRdfParseHandle.mediate({
       context,
-      handle: { data: stream, metadata: { baseIRI: <string> options.baseIRI }, context },
+      handle: { data: stream, metadata: { baseIRI: <string> options.baseIRI, version: options.version }, context },
       handleMediaType: contentType,
     })
       .then((output) => {
@@ -103,30 +104,34 @@ export interface IRdfParserArgs {
   actors: Actor<any, any, any>[];
 }
 
-export type ParseOptions = {
+export type ParseOptions = ({
   /**
    * The content type of the incoming stream.
    */
   contentType: string;
-  /**
-   * An optional base IRI of stream's document.
-   */
-  baseIRI?: string;
-  /**
-   * An optional data factory to pass to parsers.
-   */
-  dataFactory?: RDF.DataFactory;
 } | {
   /**
    * The file name or URL that is being parsed.
    */
   path: string;
+}) & ParseOptionsCommon;
+
+export type ParseOptionsCommon = {
   /**
    * An optional base IRI of stream's document.
    */
   baseIRI?: string;
   /**
+   * The version to consider as media type parameter.
+   */
+  version?: string;
+  /**
+   * By default, errors will be emitted if parsers encounter unsupported versions.
+   * Setting this flag to true will silence those checks.
+   */
+  parseUnsupportedVersions?: boolean;
+  /**
    * An optional data factory to pass to parsers.
    */
   dataFactory?: RDF.DataFactory;
-};
+}
