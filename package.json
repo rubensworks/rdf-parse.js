@@ -39,7 +39,7 @@
   "devDependencies": {
     "@comunica/runner": "^5.0.0",
     "@types/jest": "^30.0.0",
-    "arrayify-stream": "^1.0.0",
+    "arrayify-stream": "^3.0.0",
     "componentsjs-generator": "^4.2.0",
     "jest": "^30.0.0",
     "jest-rdf": "^2.0.0",
