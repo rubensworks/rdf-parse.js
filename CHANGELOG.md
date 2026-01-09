@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v5.0.0"></a>
+## [v5.0.0](https://github.com/rubensworks/rdf-parse.js/compare/v4.0.0...v5.0.0) - 2026-01-09
+
+### BREAKING CHANGE
+* [Update to Comunica v5 with RDF 1.2 support](https://github.com/rubensworks/rdf-parse.js/commit/d8fcf21445223bd0e7357a8a61f41a80571f4775)
+    This adds RDF 1.2 support, and removes RDF-star support.
+    The minimum Node.js version is now 20.
+
 <a name="v4.0.0"></a>
 ## [v4.0.0](https://github.com/rubensworks/rdf-parse.js/compare/v3.0.0...v4.0.0) - 2024-10-15
 
