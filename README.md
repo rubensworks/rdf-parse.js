@@ -131,10 +131,10 @@ rdfParser.parse(textStream, { version: '1.2', path: 'http://example.org/myfile.t
 ```
 
 By default, this library is strict on its supported versions, and will emit an error on unsupported versions.
-This behaviour can be disabled by setting `parseUnsupportedVersions` to `false`:
+This behaviour can be disabled by setting `parseUnsupportedVersions` to `true`:
 
 ```javascript
-rdfParser.parse(textStream, { parseUnsupportedVersions: false, path: 'http://example.org/myfile.ttl', baseIRI: 'http://example.org' })
+rdfParser.parse(textStream, { parseUnsupportedVersions: true, path: 'http://example.org/myfile.ttl', baseIRI: 'http://example.org' })
 ```
 
 ### Obtaining prefixes
