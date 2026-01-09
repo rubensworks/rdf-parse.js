@@ -45,7 +45,7 @@
     "jest-rdf": "^2.0.0",
     "manual-git-changelog": "^1.0.1",
     "pre-commit": "^1.2.2",
-    "rdf-dereference": "^2.1.0",
+    "rdf-dereference": "^4.0.0",
     "rdf-quad": "^2.0.0",
     "rdf-test-suite": "^2.1.4",
     "streamify-string": "^1.0.1",
