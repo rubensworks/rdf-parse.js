@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitAny": false,
-    "strictFunctionTypes": false,
-    "resolveJsonModule": true,
     "lib": [
       "es6"
-    ]
+    ],
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "strictFunctionTypes": false,
+    "noImplicitAny": false
   }
 }

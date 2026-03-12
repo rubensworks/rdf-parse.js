@@ -1,8 +1,21 @@
 {
   "name": "rdf-parse",
   "version": "5.0.0",
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "description": "Parses RDF from any serialization",
   "lsd:module": true,
+  "typings": "lib/index",
+  "author": "Ruben Taelman <rubensworks@gmail.com>",
+  "license": "MIT",
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/rubensworks/"
+  },
+  "homepage": "https://github.com/rubensworks/rdf-parse.js#readme",
+  "repository": "git@github.com:rubensworks/rdf-parse.js.git",
+  "bugs": {
+    "url": "https://github.com/rubensworks/rdf-parse.js/issues"
+  },
   "keywords": [
     "rdf",
     "parse",
@@ -11,50 +24,19 @@
     "linked data"
   ],
   "main": "lib/index.js",
-  "typings": "lib/index",
-  "repository": "git@github.com:rubensworks/rdf-parse.js.git",
-  "author": "Ruben Taelman <rubensworks@gmail.com>",
-  "funding": {
-    "type": "individual",
-    "url": "https://github.com/sponsors/rubensworks/"
-  },
-  "bugs": {
-    "url": "https://github.com/rubensworks/rdf-parse.js/issues"
-  },
-  "homepage": "https://github.com/rubensworks/rdf-parse.js#readme",
-  "license": "MIT",
   "files": [
+    "components",
+    "config",
+    "engine-default.js",
     "lib/**/*.d.ts",
     "lib/**/*.js",
-    "lib/**/*.js.map",
-    "config",
-    "components",
-    "engine-default.js"
+    "lib/**/*.js.map"
   ],
   "pre-commit": [
     "build",
     "lint",
     "test"
   ],
-  "devDependencies": {
-    "@comunica/runner": "^5.0.0",
-    "@types/jest": "^30.0.0",
-    "arrayify-stream": "^1.0.0",
-    "componentsjs-generator": "^4.2.0",
-    "jest": "^30.0.0",
-    "jest-rdf": "^2.0.0",
-    "manual-git-changelog": "^1.0.1",
-    "pre-commit": "^1.2.2",
-    "rdf-dereference": "^2.1.0",
-    "rdf-quad": "^2.0.0",
-    "rdf-test-suite": "^2.1.4",
-    "streamify-string": "^1.0.1",
-    "ts-jest": "^29.0.0",
-    "ts-node": "^10.9.1",
-    "tslint": "^6.0.0",
-    "tslint-eslint-rules": "^5.3.1",
-    "typescript": "^5.9.3"
-  },
   "jest": {
     "globals": {
       "ts-jest": {
@@ -78,7 +60,7 @@
   "scripts": {
     "test": "jest ${1} --forceExit",
     "test-watch": "jest ${1} --watch",
-    "lint": "tslint lib/index.ts lib/**/*.ts test/**/*.ts --exclude '**/*.d.ts'",
+    "lint": "eslint . --cache",
     "build": "rm -rf lib/mediaMappings.* && npm run build:mediaMappings && npm run build:ts && npm run build:components",
     "build:ts": "tsc",
     "build:mediaMappings": "ts-node scripts/getMediaMappings",
@@ -121,5 +103,23 @@
     "readable-stream": "^4.7.0",
     "stream-to-string": "^1.2.1"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "devDependencies": {
+    "@comunica/runner": "^5.0.0",
+    "@rubensworks/eslint-config": "^3.1.0",
+    "@types/jest": "^30.0.0",
+    "arrayify-stream": "^1.0.0",
+    "componentsjs-generator": "^4.2.0",
+    "eslint": "^8.56.0",
+    "jest": "^30.0.0",
+    "jest-rdf": "^2.0.0",
+    "manual-git-changelog": "^1.0.1",
+    "pre-commit": "^1.2.2",
+    "rdf-dereference": "^2.1.0",
+    "rdf-quad": "^2.0.0",
+    "rdf-test-suite": "^2.1.4",
+    "streamify-string": "^1.0.1",
+    "ts-jest": "^29.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.9.3"
+  }
 }

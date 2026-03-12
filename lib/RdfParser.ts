@@ -1,21 +1,23 @@
-import { ActionContext, Actor } from "@comunica/core";
-import * as RDF from "@rdfjs/types";
-import { Readable, PassThrough } from "readable-stream";
-import { MediatorRdfParseHandle, MediatorRdfParseMediaTypes } from '@comunica/bus-rdf-parse';
-import {mediaMappings} from "./mediaMappings";
-import { DataFactory } from 'rdf-data-factory';
+import type { MediatorRdfParseHandle, MediatorRdfParseMediaTypes } from '@comunica/bus-rdf-parse';
 import { KeysInitQuery } from '@comunica/context-entries';
+import type { Actor } from '@comunica/core';
+import { ActionContext } from '@comunica/core';
+import type * as RDF from '@rdfjs/types';
+import { DataFactory } from 'rdf-data-factory';
+import type { Readable } from 'readable-stream';
+import { PassThrough } from 'readable-stream';
+import { mediaMappings } from './mediaMappings';
 
 /**
  * An RdfParser can parse any RDF serialization, based on a given content type.
  */
-export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
-  public static readonly CONTENT_MAPPINGS: Record<string, string> = mediaMappings;
+export class RdfParser {
+  public static readonly contentMappings: Record<string, string> = mediaMappings;
 
   public readonly mediatorRdfParseMediatypes: MediatorRdfParseMediaTypes;
   public readonly mediatorRdfParseHandle: MediatorRdfParseHandle;
 
-  constructor(args: IRdfParserArgs) {
+  public constructor(args: IRdfParserArgs) {
     this.mediatorRdfParseMediatypes = args.mediatorRdfParseMediatypes;
     this.mediatorRdfParseHandle = args.mediatorRdfParseHandle;
   }
@@ -32,9 +34,10 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
    * Get a hash of all available content types for this parser, mapped to a numerical priority.
    * @return {Promise<{[p: string]: number}>} A promise resolving to a hash mapping content type to a priority number.
    */
-  public async getContentTypesPrioritized(): Promise<{[contentType: string]: number}> {
+  public async getContentTypesPrioritized(): Promise<Record<string, number>> {
     return (await this.mediatorRdfParseMediatypes.mediate(
-      { context: new ActionContext(), mediaTypes: true })).mediaTypes;
+      { context: new ActionContext(), mediaTypes: true },
+    )).mediaTypes;
   }
 
   /**
@@ -61,7 +64,7 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
 
     // Delegate parsing to the mediator
     const context = new ActionContext(options)
-      .setDefault(KeysInitQuery.dataFactory, options.dataFactory || new DataFactory())
+      .setDefault(KeysInitQuery.dataFactory, options.dataFactory ?? new DataFactory())
       .setDefault(KeysInitQuery.parseUnsupportedVersions, options.parseUnsupportedVersions);
     this.mediatorRdfParseHandle.mediate({
       context,
@@ -70,14 +73,14 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
     })
       .then((output) => {
         const quads = output.handle.data;
-        quads.on('error', (e) => readable.emit('error', e));
+        quads.on('error', e => readable.emit('error', e));
         quads.on('prefix', (prefix, iri) => readable.emit('prefix', prefix, iri));
-        quads.on('context', (ctx) => readable.emit('context', ctx));
+        quads.on('context', ctx => readable.emit('context', ctx));
         quads.pipe(readable);
       })
-      .catch((e) => readable.emit('error', e));
+      .catch(e => readable.emit('error', e));
 
-    return readable as unknown as Readable & RDF.Stream;
+    return <Readable & RDF.Stream> readable;
   }
 
   /**
@@ -89,13 +92,12 @@ export class RdfParser<Q extends RDF.BaseQuad = RDF.Quad>  {
   public getContentTypeFromExtension(path: string): string {
     const dotIndex = path.lastIndexOf('.');
     if (dotIndex >= 0) {
-      const ext = path.substr(dotIndex);
-      // ignore dot
-      return RdfParser.CONTENT_MAPPINGS[ext.substring(1)] || '';
+      const ext = path.slice(dotIndex);
+      // Ignore dot
+      return RdfParser.contentMappings[ext.slice(1)] || '';
     }
     return '';
   }
-
 }
 
 export interface IRdfParserArgs {
@@ -134,4 +136,4 @@ export type ParseOptionsCommon = {
    * An optional data factory to pass to parsers.
    */
   dataFactory?: RDF.DataFactory;
-}
+};
