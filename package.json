@@ -53,7 +53,7 @@
     "ts-node": "^10.9.1",
     "tslint": "^6.0.0",
     "tslint-eslint-rules": "^5.3.1",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.0"
   },
   "jest": {
     "globals": {
