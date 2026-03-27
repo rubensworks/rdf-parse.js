@@ -12,7 +12,8 @@ import { mediaMappings } from './mediaMappings';
  * An RdfParser can parse any RDF serialization, based on a given content type.
  */
 export class RdfParser {
-  public static readonly contentMappings: Record<string, string> = mediaMappings;
+  // eslint-disable-next-line ts/naming-convention
+  public static readonly CONTENT_MAPPINGS: Record<string, string> = mediaMappings;
 
   public readonly mediatorRdfParseMediatypes: MediatorRdfParseMediaTypes;
   public readonly mediatorRdfParseHandle: MediatorRdfParseHandle;
@@ -94,7 +95,7 @@ export class RdfParser {
     if (dotIndex >= 0) {
       const ext = path.slice(dotIndex);
       // Ignore dot
-      return RdfParser.contentMappings[ext.slice(1)] || '';
+      return RdfParser.CONTENT_MAPPINGS[ext.slice(1)] || '';
     }
     return '';
   }
