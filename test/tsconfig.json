@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "types": ["node", "jest"],
-    "noImplicitAny": false,
-    "strictFunctionTypes": false,
-    "resolveJsonModule": true,
     "lib": [
       "es6"
-    ]
+    ],
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "types": ["node", "jest"],
+    "strictFunctionTypes": false,
+    "noImplicitAny": false
   }
 }

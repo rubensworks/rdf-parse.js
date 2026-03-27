@@ -1,18 +1,18 @@
-import "jest-rdf";
-import {RdfParser} from "../lib/RdfParser";
+import 'jest-rdf';
 
-import {rdfParser} from "..";
+import { rdfParser } from '..';
+import { RdfParser } from '../lib/RdfParser';
 
-const stringToStream = require('streamify-string');
 const arrayifyStream = require('arrayify-stream');
 const quad = require('rdf-quad');
+const stringToStream = require('streamify-string');
 
 describe('parser', () => {
   it('should be an RdfParser instance', () => {
     expect(rdfParser).toBeInstanceOf(RdfParser);
   });
 
-  it('should get all content types', async () => {
+  it('should get all content types', async() => {
     expect((await rdfParser.getContentTypes()).sort()).toEqual([
       'application/ld+json',
       'application/json',
@@ -32,8 +32,8 @@ describe('parser', () => {
     ].sort());
   });
 
-  it('should get all prioritized content types', async () => {
-    expect(await rdfParser.getContentTypesPrioritized()).toEqual({
+  it('should get all prioritized content types', async() => {
+    await expect(rdfParser.getContentTypesPrioritized()).resolves.toEqual({
       'application/json': 0.135,
       'application/ld+json': 0.9,
       'application/n-quads': 1,
@@ -45,8 +45,8 @@ describe('parser', () => {
       'image/svg+xml': 0.3,
       'text/html': 0.2,
       'text/n3': 0.35,
-      "text/shaclc": 0.1,
-      "text/shaclc-ext": 0.05,
+      'text/shaclc': 0.1,
+      'text/shaclc-ext': 0.05,
       'text/turtle': 0.6,
       'text/xml': 0.3,
     });
@@ -56,7 +56,7 @@ describe('parser', () => {
     const stream = stringToStream(`
 <http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
 `);
-    return expect(() => rdfParser.parse(stream, <any>{}))
+    expect(() => rdfParser.parse(stream, <any>{}))
       .toThrow(new Error('Missing \'contentType\' or \'path\' option while parsing.'));
   });
 
@@ -64,7 +64,7 @@ describe('parser', () => {
     const stream = stringToStream(`
 <http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
 `);
-    return expect(() => rdfParser.parse(stream, {path: 'abc'}))
+    expect(() => rdfParser.parse(stream, { path: 'abc' }))
       .toThrow(new Error('No valid extension could be detected from the given \'path\' option: \'abc\''));
   });
 
@@ -72,50 +72,50 @@ describe('parser', () => {
     const stream = stringToStream(`
 <http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
 `);
-    return expect(() => rdfParser.parse(stream, {path: 'abc.unknown'}))
+    expect(() => rdfParser.parse(stream, { path: 'abc.unknown' }))
       .toThrow(new Error('No valid extension could be detected from the given \'path\' option: \'abc.unknown\''));
   });
 
-  it('should parse text/turtle without baseIRI', () => {
+  it('should parse text/turtle without baseIRI', async() => {
     const stream = stringToStream(`
 <http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
 `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'text/turtle'}))).resolves.toBeRdfIsomorphic([
+    await expect(arrayifyStream(rdfParser.parse(stream, { contentType: 'text/turtle' }))).resolves.toBeRdfIsomorphic([
       quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
       quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
     ]);
   });
 
-  it('should parse text/turtle without baseIRI by path', () => {
+  it('should parse text/turtle without baseIRI by path', async() => {
     const stream = stringToStream(`
 <http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
 `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {path: 'myfile.ttl'}))).resolves.toBeRdfIsomorphic([
+    await expect(arrayifyStream(rdfParser.parse(stream, { path: 'myfile.ttl' }))).resolves.toBeRdfIsomorphic([
       quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
       quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
     ]);
   });
 
-  it('should parse text/turtle with baseIRI', () => {
+  it('should parse text/turtle with baseIRI', async() => {
     const stream = stringToStream(`
 <s> <p> <o1>, <o2>.
 `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
+    await expect(arrayifyStream(rdfParser.parse(stream, { contentType: 'text/turtle', baseIRI: 'http://ex.org/' })))
       .resolves.toBeRdfIsomorphic([
         quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
         quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
       ]);
   });
 
-  it('should fail to parse invalid text/turtle', () => {
+  it('should fail to parse invalid text/turtle', async() => {
     const stream = stringToStream(`
 <s> <p> <o1>,
 `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'text/turtle'})))
+    await expect(arrayifyStream(rdfParser.parse(stream, { contentType: 'text/turtle' })))
       .rejects.toThrow(new Error('Expected entity but got eof on line 3.'));
   });
 
-  it('should parse application/ld+json and emit context', async (): Promise<void> => {
+  it('should parse application/ld+json and emit context', async(): Promise<void> => {
     const stream = stringToStream(`
 {
   "@context": "http://schema.org/",
@@ -126,14 +126,14 @@ describe('parser', () => {
 }
 `);
     const contexts: string[] = [];
-    const result = await arrayifyStream(rdfParser.parse(stream, {contentType: 'application/ld+json'})
-      .on('context', (context => contexts.push(context))));
+    const result = await arrayifyStream(rdfParser.parse(stream, { contentType: 'application/ld+json' })
+      .on('context', context => contexts.push(context)));
 
     expect(result).toBeRdfIsomorphic([]);
     expect(contexts).toContain('http://schema.org/');
   });
 
-  it('should parse application/ld+json without baseIRI', () => {
+  it('should parse application/ld+json without baseIRI', async() => {
     const stream = stringToStream(`
 {
   "@context": "http://schema.org/",
@@ -143,12 +143,11 @@ describe('parser', () => {
   "url": ""
 }
 `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'application/ld+json'}))).resolves
+    await expect(arrayifyStream(rdfParser.parse(stream, { contentType: 'application/ld+json' }))).resolves
       .toBeRdfIsomorphic([]);
   });
 
-
-  it('should parse application/ld+json with baseIRI', () => {
+  it('should parse application/ld+json with baseIRI', async() => {
     const stream = stringToStream(`
 {
   "@context": "http://schema.org/",
@@ -158,8 +157,8 @@ describe('parser', () => {
   "url": ""
 }
 `);
-    return expect(arrayifyStream(rdfParser
-      .parse(stream, {contentType: 'application/ld+json', baseIRI: 'http://ex.org/'})))
+    await expect(arrayifyStream(rdfParser
+      .parse(stream, { contentType: 'application/ld+json', baseIRI: 'http://ex.org/' })))
       .resolves.toBeRdfIsomorphic([
         quad('http://ex.org/', 'http://schema.org/name', '"Jane Doe"'),
         quad('http://ex.org/', 'http://schema.org/url', 'http://ex.org/'),
@@ -167,7 +166,7 @@ describe('parser', () => {
       ]);
   });
 
-  it('should parse application/ld+json with baseIRI by path', () => {
+  it('should parse application/ld+json with baseIRI by path', async() => {
     const stream = stringToStream(`
 {
   "@context": "http://schema.org/",
@@ -177,8 +176,8 @@ describe('parser', () => {
   "url": ""
 }
 `);
-    return expect(arrayifyStream(rdfParser
-      .parse(stream, {path: 'myfile.json', baseIRI: 'http://ex.org/'})))
+    await expect(arrayifyStream(rdfParser
+      .parse(stream, { path: 'myfile.json', baseIRI: 'http://ex.org/' })))
       .resolves.toBeRdfIsomorphic([
         quad('http://ex.org/', 'http://schema.org/name', '"Jane Doe"'),
         quad('http://ex.org/', 'http://schema.org/url', 'http://ex.org/'),
@@ -186,21 +185,21 @@ describe('parser', () => {
       ]);
   });
 
-  it('should fail to parse invalid application/ld+json', () => {
+  it('should fail to parse invalid application/ld+json', async() => {
     const stream = stringToStream(`
 ...,
 `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'application/ld+json'})))
+    await expect(arrayifyStream(rdfParser.parse(stream, { contentType: 'application/ld+json' })))
       .rejects.toThrow(new Error('Unexpected "." at position 1 in state STOP'));
   });
 
-  it('should fail to parse an unknown content type', () => {
+  it('should fail to parse an unknown content type', async() => {
     const stream = stringToStream(``);
-    return expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'unknown'})))
+    await expect(arrayifyStream(rdfParser.parse(stream, { contentType: 'unknown' })))
       .rejects.toBeTruthy();
   });
 
-  it('should parse text/html with baseIRI', () => {
+  it('should parse text/html with baseIRI', async() => {
     const stream = stringToStream(`
 <html>
 <head>
@@ -208,14 +207,14 @@ describe('parser', () => {
 </head>
 </html>
 `);
-    return expect(arrayifyStream(rdfParser
-      .parse(stream, {contentType: 'text/html', baseIRI: 'http://ex.org/'})))
+    await expect(arrayifyStream(rdfParser
+      .parse(stream, { contentType: 'text/html', baseIRI: 'http://ex.org/' })))
       .resolves.toBeRdfIsomorphic([
         quad('http://ex.org/', 'http://schema.org/name', '"Title"'),
       ]);
   });
 
-  it('should parse and emit prefixes in text/turtle', async (): Promise<void> => {
+  it('should parse and emit prefixes in text/turtle', async(): Promise<void> => {
     const turtle = `
     @base <http://example.org/> .
     @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -231,86 +230,84 @@ describe('parser', () => {
     <#spiderman>
         rel:enemyOf <#green-goblin> ;
         a foaf:Person ;
-        foaf:name "Spiderman", "Человек-паук"@ru .`
+        foaf:name "Spiderman", "Человек-паук"@ru .`;
     const stream = stringToStream(turtle);
     const prefixes: Record<string, string> = {};
-    const result = await arrayifyStream(rdfParser.parse(stream, {path: 'myfile.ttl'})
+    const result = await arrayifyStream(rdfParser.parse(stream, { path: 'myfile.ttl' })
       .on('prefix', (prefix, iri) => prefixes[prefix] = iri.value));
     expect(result).toBeRdfIsomorphic([
       quad('http://example.org/#green-goblin', 'http://www.perceive.net/schemas/relationship/enemyOf', 'http://example.org/#spiderman'),
       quad('http://example.org/#green-goblin', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://xmlns.com/foaf/0.1/Person'),
-      quad('http://example.org/#green-goblin', 'http://xmlns.com/foaf/0.1/name', '\"Green Goblin\"'),
+      quad('http://example.org/#green-goblin', 'http://xmlns.com/foaf/0.1/name', '"Green Goblin"'),
       quad('http://example.org/#spiderman', 'http://www.perceive.net/schemas/relationship/enemyOf', 'http://example.org/#green-goblin'),
       quad('http://example.org/#spiderman', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://xmlns.com/foaf/0.1/Person'),
-      quad('http://example.org/#spiderman', 'http://xmlns.com/foaf/0.1/name', '\"Spiderman\"'),
-      quad('http://example.org/#spiderman', 'http://xmlns.com/foaf/0.1/name', '\"Человек-паук\"@ru'),
+      quad('http://example.org/#spiderman', 'http://xmlns.com/foaf/0.1/name', '"Spiderman"'),
+      quad('http://example.org/#spiderman', 'http://xmlns.com/foaf/0.1/name', '"Человек-паук"@ru'),
     ]);
 
     expect(prefixes).toMatchObject({
       rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
       rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
       foaf: 'http://xmlns.com/foaf/0.1/',
-      rel: 'http://www.perceive.net/schemas/relationship/'
+      rel: 'http://www.perceive.net/schemas/relationship/',
     });
-
-
   });
 
-  it('should parse text/turtle with baseIRI', () => {
+  it('should parse text/turtle with baseIRI (version tests baseline)', async() => {
     const stream = stringToStream(`
         <s> <p> <o1>, <o2>.
         `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
+    await expect(arrayifyStream(rdfParser.parse(stream, { contentType: 'text/turtle', baseIRI: 'http://ex.org/' })))
       .resolves.toBeRdfIsomorphic([
         quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
         quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
       ]);
   });
 
-  it('should parse text/turtle with in-band version 1.1', () => {
+  it('should parse text/turtle with in-band version 1.1', async() => {
     const stream = stringToStream(`
         VERSION "1.1"
         <s> <p> <o1>, <o2>.
         `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
-            .resolves.toBeRdfIsomorphic([
-              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
-              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
-            ]);
+    await expect(arrayifyStream(rdfParser.parse(stream, { contentType: 'text/turtle', baseIRI: 'http://ex.org/' })))
+      .resolves.toBeRdfIsomorphic([
+        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
+      ]);
   });
 
-  it('should parse text/turtle with out-of-band version 1.1', () => {
+  it('should parse text/turtle with out-of-band version 1.1', async() => {
     const stream = stringToStream(`
         <s> <p> <o1>, <o2>.
         `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {version: '1.1', contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
-            .resolves.toBeRdfIsomorphic([
-              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
-              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
-            ]);
+    await expect(arrayifyStream(rdfParser.parse(stream, { version: '1.1', contentType: 'text/turtle', baseIRI: 'http://ex.org/' })))
+      .resolves.toBeRdfIsomorphic([
+        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
+      ]);
   });
 
-  it('should parse text/turtle with in-band version 1.2', () => {
+  it('should parse text/turtle with in-band version 1.2', async() => {
     const stream = stringToStream(`
         VERSION "1.2"
         <s> <p> <o1>, <<( <a> <b> <c> )>>.
         `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
-            .resolves.toBeRdfIsomorphic([
-              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
-              quad('http://ex.org/s', 'http://ex.org/p', '<<http://ex.org/a http://ex.org/b http://ex.org/c>>'),
-            ]);
+    await expect(arrayifyStream(rdfParser.parse(stream, { contentType: 'text/turtle', baseIRI: 'http://ex.org/' })))
+      .resolves.toBeRdfIsomorphic([
+        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+        quad('http://ex.org/s', 'http://ex.org/p', '<<http://ex.org/a http://ex.org/b http://ex.org/c>>'),
+      ]);
   });
 
-  it('should parse text/turtle with out-of-band version 1.2', () => {
+  it('should parse text/turtle with out-of-band version 1.2', async() => {
     const stream = stringToStream(`
         <s> <p> <o1>, <o2>.
         `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {version: '1.2', contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
-            .resolves.toBeRdfIsomorphic([
-              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
-              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
-            ]);
+    await expect(arrayifyStream(rdfParser.parse(stream, { version: '1.2', contentType: 'text/turtle', baseIRI: 'http://ex.org/' })))
+      .resolves.toBeRdfIsomorphic([
+        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
+      ]);
   });
 
   it('should fail to parse text/turtle with an unknown in-band version', async() => {
@@ -318,42 +315,42 @@ describe('parser', () => {
 VERSION "unknown"
 <s> <p> <o1>, <o2>.
 `);
-    await expect(arrayifyStream(rdfParser.parse(stream, {contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
-        .rejects.toThrow(new Error('Detected unsupported version: "unknown" on line 2.'));
+    await expect(arrayifyStream(rdfParser.parse(stream, { contentType: 'text/turtle', baseIRI: 'http://ex.org/' })))
+      .rejects.toThrow(new Error('Detected unsupported version: "unknown" on line 2.'));
   });
 
   it('should fail to parse text/turtle with an unknown out-of-band version', async() => {
     const stream = stringToStream(`
 <s> <p> <o1>, <o2>.
 `);
-    await expect(arrayifyStream(rdfParser.parse(stream, {version: 'unknown', contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
-            .rejects.toThrow(new Error('Detected unsupported version as media type parameter: "unknown" on line 2.'));
+    await expect(arrayifyStream(rdfParser.parse(stream, { version: 'unknown', contentType: 'text/turtle', baseIRI: 'http://ex.org/' })))
+      .rejects.toThrow(new Error('Detected unsupported version as media type parameter: "unknown" on line 2.'));
   });
 
-  it('should parse text/turtle with in-band version unknown and parseUnsupportedVersions', () => {
+  it('should parse text/turtle with in-band version unknown and parseUnsupportedVersions', async() => {
     const stream = stringToStream(`
         VERSION "unknown"
         <s> <p> <o1>, <<( <a> <b> <c> )>>.
         `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {parseUnsupportedVersions: true, contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
-            .resolves.toBeRdfIsomorphic([
-              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
-              quad('http://ex.org/s', 'http://ex.org/p', '<<http://ex.org/a http://ex.org/b http://ex.org/c>>'),
-            ]);
+    await expect(arrayifyStream(rdfParser.parse(stream, { parseUnsupportedVersions: true, contentType: 'text/turtle', baseIRI: 'http://ex.org/' })))
+      .resolves.toBeRdfIsomorphic([
+        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+        quad('http://ex.org/s', 'http://ex.org/p', '<<http://ex.org/a http://ex.org/b http://ex.org/c>>'),
+      ]);
   });
 
-  it('should parse text/turtle with out-of-band version unknown and parseUnsupportedVersions', () => {
+  it('should parse text/turtle with out-of-band version unknown and parseUnsupportedVersions', async() => {
     const stream = stringToStream(`
         <s> <p> <o1>, <o2>.
         `);
-    return expect(arrayifyStream(rdfParser.parse(stream, {version: 'unknown', parseUnsupportedVersions: true, contentType: 'text/turtle', baseIRI: 'http://ex.org/'})))
-            .resolves.toBeRdfIsomorphic([
-              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
-              quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
-            ]);
+    await expect(arrayifyStream(rdfParser.parse(stream, { version: 'unknown', parseUnsupportedVersions: true, contentType: 'text/turtle', baseIRI: 'http://ex.org/' })))
+      .resolves.toBeRdfIsomorphic([
+        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o1'),
+        quad('http://ex.org/s', 'http://ex.org/p', 'http://ex.org/o2'),
+      ]);
   });
 
-  it('should parse text/shaclc with baseIRI', async () => {
+  it('should parse text/shaclc with baseIRI', async() => {
     const stream = stringToStream(`
           BASE <http://localhost:3002/ContactsShape>
           PREFIX cont: <http://localhost:3002/ContactsShape#>
@@ -362,13 +359,13 @@ VERSION "unknown"
         `);
 
     const prefixes: Record<string, string> = {};
-    const result = arrayifyStream(rdfParser.parse(stream, {contentType: 'text/shaclc'})
+    const result = arrayifyStream(rdfParser.parse(stream, { contentType: 'text/shaclc' })
       .on('prefix', (prefix: string, iri: string) => prefixes[prefix] = iri));
 
     await expect(result)
       .resolves.toBeRdfIsomorphic([
-        quad("http://localhost:3002/ContactsShape#ContactsShape", "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://www.w3.org/ns/shacl#NodeShape"),
-        quad("http://localhost:3002/ContactsShape", "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://www.w3.org/2002/07/owl#Ontology"),
+        quad('http://localhost:3002/ContactsShape#ContactsShape', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://www.w3.org/ns/shacl#NodeShape'),
+        quad('http://localhost:3002/ContactsShape', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://www.w3.org/2002/07/owl#Ontology'),
       ]);
 
     expect(prefixes).toMatchObject({
@@ -377,5 +374,4 @@ VERSION "unknown"
       sh: 'http://www.w3.org/ns/shacl#',
     });
   });
-
 });
