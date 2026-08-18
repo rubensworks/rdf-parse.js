@@ -3,7 +3,7 @@ import 'jest-rdf';
 import { rdfParser } from '..';
 import { RdfParser } from '../lib/RdfParser';
 
-const arrayifyStream = require('arrayify-stream');
+const { arrayifyStream } = require('arrayify-stream');
 const quad = require('rdf-quad');
 const stringToStream = require('streamify-string');
 

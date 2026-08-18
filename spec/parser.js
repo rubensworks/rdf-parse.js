@@ -13,6 +13,7 @@ module.exports = {
         new ErrorSkipped(`Test with spec version ${options.specVersion} was skipped, only 1.1 is supported.`),
       );
     }
-    return require('arrayify-stream')(rdfParser.parse(require('streamify-string')(data), { baseIRI, ...options }));
+    return require('arrayify-stream')
+      .arrayifyStream(rdfParser.parse(require('streamify-string')(data), { baseIRI, ...options }));
   },
 };
