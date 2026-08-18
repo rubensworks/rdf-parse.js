@@ -1,8 +1,8 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import rdfDereference from 'rdf-dereference';
+import { rdfDereferencer } from 'rdf-dereference';
 
-const mediaMappings: Record<string, string> = (<any>rdfDereference.mediatorDereferenceRdf.bus).actors[0].mediaMappings;
+const mediaMappings: Record<string, string> = (<any>rdfDereferencer.mediatorDereferenceRdf.bus).actors[0].mediaMappings;
 
 fs.writeFileSync(
   path.join(__dirname, '..', 'lib', 'mediaMappings.ts'),
